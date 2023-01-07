@@ -1,3 +1,11 @@
+--[[=============================================--
+-- main.lua
+-- Main bot entrypoint
+--
+--
+-- SPDX-License-Identifier: GPL-3.0-only
+-- Author: Lyrthras
+--=============================================]]--
 
 local fs = require 'fs'
 

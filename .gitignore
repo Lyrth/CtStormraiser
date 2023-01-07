@@ -1,0 +1,8 @@
+_token*
+deps/
+storage/
+resources/
+_private/
+*.sublime-workspace
+*.log
+

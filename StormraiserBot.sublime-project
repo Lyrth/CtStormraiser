@@ -1,0 +1,41 @@
+{
+    "folders": [
+        {
+            "path": ".",
+        },
+    ],
+    "settings": {
+        "LSP": {
+            "LSP-lua": {
+                "settings": {
+                    "Lua.hint.enable": true,
+                    "Lua.workspace.ignoreDir": [
+                        "deps/discordia"
+                    ],
+                    "Lua.workspace.useGitIgnore": false,
+                    "Lua.workspace.userThirdParty": [
+                        "_private/defs"
+                    ],
+                    "Lua.completion.requireSeparator": "/",
+                    "Lua.diagnostics.globals":
+                    [
+						"p",
+						"args"
+                    ],
+                    "Lua.runtime.path":
+                    [
+                        "?.lua",
+                        "?/init.lua",
+                        "deps/?/init.lua",
+                        "deps/?.lua",
+                        "libs/?.lua",
+                        "libs/?/init.lua"
+                    ],
+
+                    "Lua.hint.paramType": false,
+                    "Lua.hint.paramName": "Literal",
+                },
+            },
+        },
+    },
+}

@@ -4,7 +4,8 @@
 
 -- File names for each command
 local commands = {
-    'ping'
+    'ping',
+    'shop'
 }
 
 

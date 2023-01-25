@@ -1,9 +1,9 @@
-_token*
-deps/
-storage/
-resources/
-_private/
+/_token*
+/deps/
+/storage/
+/resources/
+/_private/
 *.sublime-workspace
 *.log
-gateway.json
+/gateway.json
 

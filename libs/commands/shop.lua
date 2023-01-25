@@ -35,7 +35,7 @@ local tl = assert(json.decode(assert(fs.readFileSync 'resources/Game.locres.json
 local function getloc(ns, key, emptyMissing)
     local n = tl[ns]
     if not n then return ("[NS_ERR:%s]"):format(ns) end
-    return (n[key] or (emptyMissing and '' or ("%s|%s"):format(ns, key))):gsub("<[^>]*>(.-)</>", "%1"):gsub("<[^>]*>", "?")
+    return (n[key] or (emptyMissing and '' or ("%s|%s"):format(ns, key))):gsub('<[^>]*>(.-)</>', '%1'):gsub('<[^>]*>', '?')
 end
 
 local function formatDate(timestamp)
@@ -44,6 +44,15 @@ local function formatDate(timestamp)
     end
     return ("ends <t:%d:R>"):format(timestamp)
 end
+
+
+local sectionNames = {
+    LV1 = 'Other',
+    LV2 = 'Other',
+    EVT = 'EventSectionTitle',
+    DAY = 'DailySectionTitle',
+    FTD = 'FeaturedSectionTitle',
+}
 
 
 -- TODO Stickers
@@ -60,13 +69,8 @@ function cmd.handle(intr)
 
     local sections = {}
     for _,v in ipairs(shop) do
-        if v.Section == 'LV1' or v.Section == 'LV2' or v.Section == 'EVT' or v.Section == 'DAY' or v.Section == 'FTD' then
-            if not v.Name then
-                if v.Section == 'EVT' then v.Name = 'EventSectionTitle' end
-                if v.Section == 'DAY' then v.Name = 'DailySectionTitle' end
-                if v.Section == 'FTD' then v.Name = 'FeaturedSectionTitle' end
-                if not v.Name then v.Name = 'Other' end
-            end
+        if sectionNames[v.Section] then
+            if not v.Name then v.Name = sectionNames[v.Section] end
             if v.Slot == 256 or v.Slot == 272 then v.Slot = 1 end
             if not sections[v.Name] then sections[v.Name] = {} end
             local slot = sections[v.Name][v.Slot+1]
@@ -87,8 +91,8 @@ function cmd.handle(intr)
         fields[#fields+1] = {}
         local field = fields[#fields]
         local sectionTitle = getloc('MENU', sectionNameId, true)
-        field.name = #sectionTitle > 0 and sectionTitle or "Other"
-        field.value = ""
+        field.name = #sectionTitle > 0 and sectionTitle or 'Other'
+        field.value = ''
 
         for setId, set in ipairs(sets) do
             local commonDate = -1

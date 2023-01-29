@@ -7,12 +7,13 @@ return {
     homepage = "https://github.com/Lyrth/StormraiserBot",
     private = true,
     dependencies = {
-        "https://github.com/wbx/Discordia",
-        "https://github.com/Bilal2453/discordia-interactions",
         "https://github.com/Bilal2453/discordia-components",
+        "https://github.com/Bilal2453/discordia-interactions",
+        "https://github.com/Bilal2453/lit-vips",
+        "https://github.com/wbx/Discordia",
         "https://github.com/wbx/discordia-llslash",
         "https://github.com/wbx/lit-PlayFabClientSdk",
-        "https://github.com/Bilal2453/lit-vips"
+        "ssh://git@github.com/wbx/CtLib.git",   -- private dependency.
     },
     files = {
         "**.lua",

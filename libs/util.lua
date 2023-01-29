@@ -10,8 +10,9 @@ end
 
 local function parseServerDate(str)
     local year,month,day,hour,min,sec,ms = str:match '^(%d+)%-(%d+)%-(%d+)T(%d+):(%d+):(%d+)%.(%d+)Z'
+    local dtz = (os.time()-os.time(os.date("!*t")))
 
-    return os.time {
+    return dtz + os.time {
         sec = sec,
         min = min,
         isdst = false,
@@ -19,7 +20,7 @@ local function parseServerDate(str)
         day = day,
         month = month,
         year = year
-    } + (os.time()-os.time(os.date("!*t")))
+    }
 end
 
 

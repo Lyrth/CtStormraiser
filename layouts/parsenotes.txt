@@ -1,0 +1,68 @@
+
+ShopTitle: IMAGE
+Footer: IMAGE
+
+CarouselConfig: table:REP.CONFIGVAR
+Items: table<string,any>[]
+
+
+---
+
+ThumbImage: IMAGE
+
+ItemTitle: IMAGE
+ItemDescShort: IMAGE
+ItemDescLong: IMAGE
+
+ContainerType
+  Vert
+  Square
+
+PriceType
+  Both
+  Coins
+  Gems
+  None
+
+CoinsPrice: IMAGE
+GemsPrice: IMAGE
+RealPrice: IMAGE
+
+Rarity 
+  Common
+  Rare
+  Epic
+  Legendary
+  Unique
+  Neutral
+
+
+
+
+[Export: "Include id attribute"]
+
+NOTE: remove == replacing node with an empty element (to not break pairs)
+
+rect{{RES=_FILENAME_.svg}}
+  replace rectangle with svg contents (root svg element is kept)
+
+anyElem{{VARMAP=_VAROLD_,_VARNEW_}}
+  replace {{$_VAROLD_}} with {{$_VARNEW_}} in id strings of nested elements
+
+>rect{{REP=_FILENAME_.svg,_CONFIGVAR_,_VARSTABLEVAR_}}
+  repeat file, each from variables by _VARSTABLEVAR_, with CONFIGVAR: {centered, xpad, ypad, anchor, maxcols, maxrows}
+  only pos and center used, no constraint
+
+anyElem{{EN=_VARNAME_}}
+  remove element if _VARNAME_ variable has no value
+
+>anyElem{{SEL=_PROPNAME_}}
+  retain 1-level nested element if id matches '^_PROPNAME_='..PROPNAME (only beginning of string)
+  remove the nested element otherwise
+  
+  if no 1-level nested element matches, keep last element
+
+>rect{{REI=_VARNAME_,CENTER?,LIMITW?,LIMITH?}}
+  replace rectangle with rasterized image from _VARNAME_ (a vips.Image object)
+  image w,h is used from the image object, scaled down to rect ceil(w|h) if too large and LIMITW/LIMITH is specified
+  aligns the image's center at the rectangle's center if CENTER is specified

@@ -1,0 +1,77 @@
+<svg width="3840" height="2160" viewBox="0 0 3840 2160" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="MainArea">
+<g id="Content">
+<mask id="mask0_0_1" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="19" y="4" width="3802" height="2152">
+<path id="FrameMask" d="M1958 22.5L1920 4L1882 22.5H19V2137H1882L1920 2156L1958 2137H3821V22.5H1958Z" fill="#D9D9D9"/>
+</mask>
+<g mask="url(#mask0_0_1)">
+<rect id="Background" width="3840" height="2160" fill="url(#pattern0)"/>
+<rect id="Footer{{REI=Footer}}" x="106" y="2108" width="3000" height="24" fill="black" fill-opacity="0.01"/>
+<rect id="ItemCarousel{{REP=ItemContainer.svg,CarouselConfig,Items}}" y="260" width="3840" height="1840" fill="black" fill-opacity="0.01"/>
+<rect id="ShopTitleBg 1" x="1348" width="1144" height="220" fill="url(#pattern1)"/>
+<rect id="ShopTitle{{REI=ShopTitle,CENTER,LIMITH}}" x="1670" y="68" width="500" height="95" fill="black" fill-opacity="0.01"/>
+</g>
+</g>
+<g id="FrameDecal">
+<rect id="FrameDecal 1" width="112" height="192" fill="url(#pattern2)"/>
+<rect id="FrameDecal 2" x="112" width="1760" height="192" fill="url(#pattern3)"/>
+<rect id="FrameDecal 3" x="1872" width="96" height="192" fill="url(#pattern4)"/>
+<rect id="FrameDecal 4" y="192" width="112" height="1872" fill="url(#pattern5)"/>
+<rect id="FrameDecal 5" y="2064" width="112" height="96" fill="url(#pattern6)"/>
+<rect id="FrameDecal 6" x="112" y="2064" width="1760" height="96" fill="url(#pattern7)"/>
+<rect id="FrameDecal 7" x="1872" y="2064" width="96" height="96" fill="url(#pattern8)"/>
+<rect id="FrameDecal 8" x="1968" width="1760" height="192" fill="url(#pattern9)"/>
+<rect id="FrameDecal 9" x="3728" width="112" height="192" fill="url(#pattern10)"/>
+<rect id="FrameDecal 10" x="3728" y="192" width="112" height="1872" fill="url(#pattern11)"/>
+<rect id="FrameDecal 11" x="1968" y="2064" width="1760" height="96" fill="url(#pattern12)"/>
+<rect id="FrameDecal 12" x="3728" y="2064" width="112" height="96" fill="url(#pattern13)"/>
+</g>
+</g>
+<defs>
+<pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image0_0_1" transform="scale(0.000260417 0.000462963)"/>
+</pattern>
+<pattern id="pattern1" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image1_0_1" transform="translate(0 -0.0727273) scale(0.000874126 0.00454545)"/>
+</pattern>
+<pattern id="pattern2" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image2_0_1" transform="scale(0.00892857 0.00520833)"/>
+</pattern>
+<pattern id="pattern3" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image2_0_1" transform="translate(-3.5) scale(0.03125 0.00520833)"/>
+</pattern>
+<pattern id="pattern4" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image2_0_1" transform="translate(-1.5) scale(0.0104167 0.00520833)"/>
+</pattern>
+<pattern id="pattern5" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image2_0_1" transform="translate(0 -6) scale(0.00892857 0.03125)"/>
+</pattern>
+<pattern id="pattern6" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image2_0_1" transform="translate(0 -2.33333) scale(0.00892857 0.0104167)"/>
+</pattern>
+<pattern id="pattern7" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image2_0_1" transform="translate(-3.5 -2.33333) scale(0.03125 0.0104167)"/>
+</pattern>
+<pattern id="pattern8" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image2_0_1" transform="translate(-1.5 -2.33333) scale(0.0104167)"/>
+</pattern>
+<pattern id="pattern9" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image2_0_1" transform="translate(-7.5) scale(0.03125 0.00520833)"/>
+</pattern>
+<pattern id="pattern10" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image2_0_1" transform="translate(-2.42857) scale(0.00892857 0.00520833)"/>
+</pattern>
+<pattern id="pattern11" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image2_0_1" transform="translate(-2.42857 -6) scale(0.00892857 0.03125)"/>
+</pattern>
+<pattern id="pattern12" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image2_0_1" transform="translate(-7.5 -2.33333) scale(0.03125 0.0104167)"/>
+</pattern>
+<pattern id="pattern13" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image2_0_1" transform="translate(-2.42857 -2.33333) scale(0.00892857 0.0104167)"/>
+</pattern>
+<image id="image0_0_1" data-name="Background.png" width="3840" height="2160" xlink:href="res/Background.png"/>
+<image id="image1_0_1" data-name="ShopTitleBg.png" width="1144" height="236" xlink:href="res/ShopTitleBg.png"/>
+<image id="image2_0_1" data-name="FrameDecal.png" width="384" height="320" xlink:href="res/FrameDecal.png"/>
+</defs>
+</svg>

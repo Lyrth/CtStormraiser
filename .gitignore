@@ -3,6 +3,7 @@
 /storage/
 /resources/
 /_private/
+/layouts/result.svg
 *.sublime-workspace
 *.log
 /gateway.json

@@ -81,7 +81,7 @@ function cmd.handle(intr)
     local hash = util.tbHash(shop)
 
     if hash == lastHash and lastEmbed then
-        lastEmbed.embeds[1].description = ("Last checked: <t:%d:R>\nLast updated: <t:%d:R>\n"):format(os.time(), lastUpdate)
+        lastEmbed.embeds[1].description = ("Last checked: <t:%d:R>\nLast updated: <t:%d:R>\n_ _"):format(os.time(), lastUpdate)
 
         intr:editReply(lastEmbed)
 
@@ -141,9 +141,9 @@ function cmd.handle(intr)
             for _, item in ipairs(set) do
                 local name = ct:getLocalization('PACKAGE', item.id..'_NAME') or '???'
                 local desc = ct:getLocalization('PACKAGE', item.id..'_DESC') or ''
-                field.value = field.value .. (" • _%s_ %s%s\n"):format(
+                field.value = field.value .. (" • _%s_%s%s\n"):format(
                     name,
-                    #desc == 0 and '' or ('(%s) '):format(desc),
+                    #desc == 0 and '' or (' - %s'):format(desc),
                     item.date == commonDate and '' or (' - %s'):format(formatDate(commonDate))
                 )
             end
@@ -157,7 +157,7 @@ function cmd.handle(intr)
         content = 'Generating item displays...',
         embeds = {{
             title = "Century Shop",
-            description = ("Last checked: <t:%d:R>\nLast updated: <t:%d:R>\n_ _\n_ _"):format(os.time(), os.time()),
+            description = ("Last checked: <t:%d:R>\nLast updated: <t:%d:R>\n_ _"):format(os.time(), os.time()),
             fields = fields,
             --footer = {text = "This is a footer", icon_url = "https://www.google.com/favicon.ico",
             color = discordia.Color.fromRGB(120, 40, 180).value,

@@ -7,4 +7,4 @@
 -- Author: Lyrthras
 --=============================================]]--
 
-dofile 'main.lua'
+require './main.lua'

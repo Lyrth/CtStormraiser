@@ -15,7 +15,7 @@ local discordia = require 'discordia'
 require 'discordia-llslash'
 local client = discordia.Client()
 
-
+local util = require 'util'
 local c = require 'commands'
 local slashCommands = c.slashCommands
 local slashHandlers = c.handlers
@@ -29,6 +29,7 @@ client:on('ready', function()
 
     local sl, err = client:bulkOverwriteApplicationCommands(slashCommands)
     if not sl then
+        util.sendErrorToOwner(client, "Slash commands registration error: " .. err)
         return client:error("Slash commands registration error: %s", err)
     end
     client:info("Registered %d/%d global slash commands.", #slashCommands, #sl)
@@ -39,8 +40,9 @@ client:on('slashCommand', function(intr)
     if not command then
         return client:warning("Unknown slash command received: '/%s'", intr.data.name)
     end
-    local ok, err = pcall(command, intr)
+    local ok, err = xpcall(command, debug.traceback, intr)
     if not ok then
+        util.sendErrorToOwner(client, err)
         return client:error("Slash command '/%s' error: %s", intr.data.name, err)
     end
 end)

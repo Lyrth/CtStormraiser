@@ -1,3 +1,11 @@
+--[[=============================================--
+-- util.lua
+-- Some random utilities used for the bot
+--
+--
+-- SPDX-License-Identifier: GPL-3.0-only
+-- Author: Lyrthras
+--=============================================]]--
 
 local sha2 = require 'sha2'
 
@@ -22,6 +30,18 @@ local function parseServerDate(str)
         year = year
     }
 end
+
+local function locresFmt(text)
+    return text
+        :gsub('<img id="RichText%.BulletPoint"/>', ' ‣ ')
+        :gsub('<b>([^<]*)</>', '<b>%1</b>')
+end
+
+---@param client Client
+local function sendErrorToOwner(client, err)
+    client:getUser('368727799189733376'):send(("An error has occured! ```\n%s\n```"):format(err))
+end
+
 
 
 -- return: sha256 base64
@@ -81,8 +101,10 @@ local function cleanTable(tb,_,seen)
 end
 
 return {
+    sendErrorToOwner = sendErrorToOwner,
     parseServerDate = parseServerDate,
     jsonAssert = jsonAssert,
     tbHash = tbHash,
     cleanTable = cleanTable,
+    locresFmt = locresFmt,
 }

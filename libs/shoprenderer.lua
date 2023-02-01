@@ -266,7 +266,7 @@ function ShopRenderer.generate(vars, outPath)
     parse(dom, vars)
     local xml = slaxml:xml(dom)
     fs.writeFileSync(layoutDir..'/result.svg', xml)
-    vips.Image.new_from_file(layoutDir..'/result.svg'):write_to_file(outPath)
+    vips.Image.new_from_file(layoutDir..'/result.svg[dpi=36]'):write_to_file(outPath)
 end
 
 ShopRenderer.imageBinary = imageBinary

@@ -6,10 +6,9 @@
 </mask>
 <g mask="url(#mask0_0_1)">
 <rect id="Background" width="3840" height="2160" fill="url(#pattern0)"/>
-<rect id="Footer{{REI=Footer}}" x="106" y="2108" width="3000" height="24" fill="black" fill-opacity="0.01"/>
-<rect id="ItemCarousel{{REP=ItemContainer.svg,CarouselConfig,Items}}" y="260" width="3840" height="1840" fill="black" fill-opacity="0.01"/>
-<rect id="ShopTitleBg 1" x="1348" width="1144" height="220" fill="url(#pattern1)"/>
-<rect id="ShopTitle{{REI=ShopTitle,CENTER,LIMITH}}" x="1670" y="68" width="500" height="95" fill="black" fill-opacity="0.01"/>
+<rect id="ItemCarousel{{REP=ItemContainer.svg,CarouselConfig,Items}}" y="720" width="3840" height="1024" fill="black" fill-opacity="0.01"/>
+<rect id="ShopTitleBg 1" x="1348" y="168" width="1144" height="220" fill="url(#pattern1)"/>
+<rect id="ShopTitle{{REI=ShopTitle,CENTER,LIMITH}}" x="1670" y="192" width="500" height="95" fill="black" fill-opacity="0.01"/>
 </g>
 </g>
 <g id="FrameDecal">
@@ -27,6 +26,7 @@
 <rect id="FrameDecal 12" x="3728" y="2064" width="112" height="96" fill="url(#pattern13)"/>
 </g>
 </g>
+<rect id="Footer{{REI=Footer}}" x="112" y="2100" width="3000" height="24" fill="black" fill-opacity="0.01"/>
 <defs>
 <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
 <use xlink:href="#image0_0_1" transform="scale(0.000260417 0.000462963)"/>

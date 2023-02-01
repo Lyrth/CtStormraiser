@@ -81,7 +81,7 @@ function cmd.handle(intr)
     local hash = util.tbHash(shop)
 
     if hash == lastHash and lastEmbed then
-        lastEmbed.embeds[1].description = ("Last checked: <t:%d:R>\nLast updated: <t:%d:R>\n_ _"):format(os.time(), lastUpdate)
+        lastEmbed.embeds[1].description = ("Century shop contents as of <t:%d:F>\nLast checked: <t:%d:R>\n_ _"):format(lastUpdate, os.time())
 
         intr:editReply(lastEmbed)
 
@@ -153,11 +153,12 @@ function cmd.handle(intr)
     end
 
 
+    lastUpdate = os.time()
     local embed = {
         content = 'Generating item displays...',
         embeds = {{
             title = "Century Shop",
-            description = ("Last checked: <t:%d:R>\nLast updated: <t:%d:R>\n_ _"):format(os.time(), os.time()),
+            description = ("Century shop contents as of <t:%d:F>\nLast checked: <t:%d:R>\n_ _"):format(lastUpdate, os.time()),
             fields = fields,
             --footer = {text = "This is a footer", icon_url = "https://www.google.com/favicon.ico",
             color = discordia.Color.fromRGB(120, 40, 180).value,

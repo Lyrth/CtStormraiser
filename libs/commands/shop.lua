@@ -56,6 +56,9 @@ local sectionNames = {
     EVT = 'EventSectionTitle',
     DAY = 'DailySectionTitle',
     FTD = 'FeaturedSectionTitle',
+    EX1 = 'Weekly - Other',
+    EX2 = 'Weekly - Other',
+    EX3 = 'Weekly - Other',
 }
 
 
@@ -99,6 +102,9 @@ function cmd.handle(intr)
     for _,v in ipairs(shop) do
         if sectionNames[v.Section] then
             if not v.Name then v.Name = sectionNames[v.Section] end
+            if v.Section:sub(1,2) == 'EX' then
+                v.Name = 'Weekly - \1'..v.Name
+            end
             if v.Slot == 256 or v.Slot == 272 then v.Slot = 1 v.Square = true end
             if not sections[v.Name] then sections[v.Name] = {} end
             local slot = sections[v.Name][v.Slot+1]
@@ -126,7 +132,13 @@ function cmd.handle(intr)
         local sectionNameId, sets = v[1], v[2]
         fields[#fields+1] = {}
         local field = fields[#fields]
-        field.name = ct:getLocalization('MENU', sectionNameId) or 'Other'
+        if sectionNameId:find('\1') then
+            local x = sectionNameId:find('\1')
+            local prefix, name = sectionNameId:sub(1,x-1), sectionNameId:sub(x+1)
+            field.name = prefix .. (ct:getLocalization('MENU', name) or 'Other')
+        else
+            field.name = ct:getLocalization('MENU', sectionNameId) or 'Other'
+        end
         field.value = ''
 
         for setId, set in ipairs(sets) do
@@ -168,13 +180,14 @@ function cmd.handle(intr)
 
 
     local footer = ShopRenderer.imageText('Footer', 'Century Shop Display beta. Displayed items may or may not accurately represent actual in-game items. Assets used are © 2023 Playwing.')
-    for i,v in ipairs(sectionsSorted) do
+    local i = 0
+    while i < #sectionsSorted do
+        i = i + 1
         do
-            local sectionNameId, sets = v[1], v[2]
+            local sectionNameId, sets = sectionsSorted[i][1], sectionsSorted[i][2]
 
             local items = {}
             local excess = {}
-
             for _,set in ipairs(sets) do
                 for _, item in ipairs(set) do
                     if #items < 6 then
@@ -185,11 +198,22 @@ function cmd.handle(intr)
                 end
             end
             if #excess > 0 then
+                if #items > #excess + 1 then
+                    for _ = 1, math.floor((#items - #excess)/2) do
+                        table.insert(excess, 1, table.remove(items))
+                    end
+                end
                 table.insert(sectionsSorted, i+1, {sectionNameId, {excess}})
             end
 
-
-            local shopTitle = ct:getLocalization('MENU', sectionNameId) or 'Other'
+            local shopTitle
+            if sectionNameId:find('\1') then
+                local x = sectionNameId:find('\1')
+                local prefix, name = sectionNameId:sub(1,x-1), sectionNameId:sub(x+1)
+                shopTitle = prefix .. (ct:getLocalization('MENU', name) or 'Other')
+            else
+                shopTitle = ct:getLocalization('MENU', sectionNameId) or 'Other'
+            end
             local imVars = {
                 ShopTitle = ShopRenderer.imageText('ShopTitle', shopTitle),
                 Footer = footer,
@@ -233,16 +257,12 @@ function cmd.handle(intr)
                     vars.CoinsPrice = ShopRenderer.imageText('Price', item.SC)
                     vars.GemsPrice = ShopRenderer.imageText('Price', item.HC)
                 end
-                collectgarbage()
-                collectgarbage()
 
                 ::continue::
             end
 
             ShopRenderer.generate(imVars, 'storage/Shop'..i..'.png')
         end
-        collectgarbage()
-        collectgarbage()
     end
 
     lastHash = hash
@@ -253,8 +273,12 @@ function cmd.handle(intr)
 
     local files = {}
     numFiles = #sectionsSorted
-    for i = 1, numFiles do
+    for _ = 1, numFiles do
         files[#files+1] = {('CtBot_Shop%02d_%s.png'):format(i, os.date('!%Y-%m-%d')), fs.readFileSync('storage/Shop'..i..'.png')}
+        if #files >= 8 and #files < numFiles then
+            intr.channel:send {files = files}
+            files = {}
+        end
     end
     intr.channel:send {files = files}
 end

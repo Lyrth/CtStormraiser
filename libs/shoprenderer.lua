@@ -139,10 +139,6 @@ function ops.REI(args, node, varstb)
             {'height', tostring(h)},
             {'href', 'data:image/png;base64,'..base64.encode(tostring(im:write_to_buffer(".png")))}
         }))
-
-        varstb[varName] = nil
-        collectgarbage()
-        collectgarbage()
     end
 end
 
@@ -265,8 +261,14 @@ function ShopRenderer.generate(vars, outPath)
     local dom = slaxml:dom(svg, { stripWhitespace = true })
     parse(dom, vars)
     local xml = slaxml:xml(dom)
-    fs.writeFileSync(layoutDir..'/result.svg', xml)
-    vips.Image.new_from_file(layoutDir..'/result.svg[dpi=36]'):write_to_file(outPath)
+
+    local fn = layoutDir..'/'..outPath:match("[^\\/]+$")..'.svg'
+
+    fs.writeFileSync(fn, xml)
+    vips.Image.new_from_file(fn..'[dpi=36]'):write_to_file(outPath)
+    fs.unlinkSync(fn)
+    collectgarbage()
+    collectgarbage()
 end
 
 ShopRenderer.imageBinary = imageBinary

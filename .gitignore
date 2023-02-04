@@ -1,10 +1,8 @@
-/_token*
+/_*
+!/_workfiles
 /deps/
 /storage/
-/resources/
-/_private/
-/layouts/result.svg
+/gateway.json
 *.sublime-workspace
 *.log
-/gateway.json
 

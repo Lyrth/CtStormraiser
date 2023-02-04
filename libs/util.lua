@@ -100,6 +100,43 @@ local function cleanTable(tb,_,seen)
     end
 end
 
+local function isValidKey(k)
+    return type(k) == 'string' or tonumber(k) ~= nil or type(k) == 'boolean'
+end
+
+-- discards noncompliant keys, nonserializable values, removes metatables, does not keep cyclic references
+---@generic T table|any
+---@param orig T
+---@return T
+local function tcopym(orig, _, _copies)
+    _copies = _copies or {}
+    if type(orig) == 'table' then
+        if _copies[orig] then
+            -- discard
+            return nil
+        else
+            _copies[orig] = true
+            local t = {}
+            for orig_key, orig_value in next, orig, nil do
+                if isValidKey(orig_key) then
+                    if (type(orig_value) == 'string' or
+                        type(orig_value) == 'number' or
+                        type(orig_value) == 'boolean') then
+                        t[orig_key] = orig_value
+                    elseif (
+                        type(orig_value) == 'table' or
+                        type(orig_value) == 'cdata') then
+                        t[orig_key] = tcopym(orig_value, _, _copies)
+                    end
+                end
+            end
+            return t
+        end
+    else
+        return type(orig) == 'cdata' and tonumber(orig) or orig
+    end
+end
+
 return {
     sendErrorToOwner = sendErrorToOwner,
     parseServerDate = parseServerDate,
@@ -107,4 +144,5 @@ return {
     tbHash = tbHash,
     cleanTable = cleanTable,
     locresFmt = locresFmt,
+    tcopym = tcopym,
 }

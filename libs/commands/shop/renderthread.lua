@@ -50,7 +50,7 @@ local function __thread__(_sectionsSorted) coroutine.wrap(function()
             local imVars = {
                 ShopTitle = ShopRenderer.imageText('ShopTitle', shopTitle),
                 Footer = footer,
-                CarouselConfig = { centered = true, maxcols = 6, xpad = 80 },
+                CarouselConfig = { centered = true, maxcols = 6, xpad = 40 },
                 Items = {}
             }
 

@@ -1,3 +1,3 @@
 <svg fill="none" xmlns="http://www.w3.org/2000/svg">
-<text id="Price" fill="white" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="48" letter-spacing="0em"><tspan x="-0.953125" y="32.9">{{$Price}}</tspan></text>
+<text id="Price" fill="white" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="24" letter-spacing="0em"><tspan x="0" y="16.45">{{$Price}}</tspan></text>
 </svg>

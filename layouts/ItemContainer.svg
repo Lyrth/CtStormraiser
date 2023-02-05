@@ -1,274 +1,269 @@
-<svg width="512" height="1024" viewBox="0 0 512 1024" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="256" height="512" viewBox="0 0 256 512" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="ItemContainer">
 <g id="ItemThumb{{SEL=ContainerType}}">
 <g id="ContainerType=Vert">
 <g id="VertBackground{{SEL=Rarity}}">
 <g id="Rarity=Common" clip-path="url(#clip0_35_104)">
-<rect id="VertBgCommon 1" width="512" height="1084.63" fill="url(#pattern0)"/>
+<rect id="VertBgCommon 2" width="256" height="542" fill="url(#pattern0)"/>
 </g>
 <g id="Rarity=Rare" clip-path="url(#clip1_35_104)">
-<rect id="VertBgRare 1" width="512" height="1084.63" fill="url(#pattern1)"/>
+<rect id="VertBgRare 2" x="-0.400024" width="256" height="542" fill="url(#pattern1)"/>
 </g>
 <g id="Rarity=Epic" clip-path="url(#clip2_35_104)">
-<rect id="VertBgEpic 1" width="512" height="1084.63" fill="url(#pattern2)"/>
+<rect id="VertBgEpic 2" x="0.199951" width="256" height="542" fill="url(#pattern2)"/>
 </g>
 <g id="Rarity=Legendary" clip-path="url(#clip3_35_104)">
-<rect id="VertBgLegendary 1" width="512" height="1084.63" fill="url(#pattern3)"/>
+<rect id="VertBgLegendary 2" x="-0.200073" width="256" height="542" fill="url(#pattern3)"/>
 </g>
 <g id="Rarity=Unique" clip-path="url(#clip4_35_104)">
-<rect id="VertBgUnique 1" width="512" height="1084.63" fill="url(#pattern4)"/>
+<rect id="VertBgUnique 2" x="0.399902" width="256" height="542" fill="url(#pattern4)"/>
 </g>
 <g id="Rarity=Neutral" clip-path="url(#clip5_35_104)">
-<rect id="VertBgNeutral 1" width="512" height="1084.63" fill="url(#pattern5)"/>
+<rect id="VertBgNeutral 2" width="256" height="542" fill="url(#pattern5)"/>
 </g>
 </g>
-<rect id="ThumbImage{{REI=ThumbImage,CENTER,LIMITW,LIMITH}}" width="512" height="1024" fill="black" fill-opacity="0.01"/>
-<rect id="VertOutline 1" width="512" height="1024" fill="url(#pattern6)"/>
+<rect id="ThumbImage{{REI=ThumbImage,CENTER,LIMITW,LIMITH}}" width="256" height="512" fill="black" fill-opacity="0.01"/>
+<rect id="VertOutline 2" width="256" height="512" fill="url(#pattern6)"/>
 </g>
 <g id="ContainerType=Square">
 <g id="SquareBackground{{SEL=Rarity}}">
 <g id="Rarity=Common_2" clip-path="url(#clip6_35_104)">
-<rect id="SquareBgCommon 1" y="512" width="512" height="532.211" fill="url(#pattern7)"/>
+<rect id="SquareBgCommon 2" y="256" width="256" height="266" fill="url(#pattern7)"/>
 </g>
 <g id="Rarity=Rare_2" clip-path="url(#clip7_35_104)">
-<rect id="SquareBgRare 1" y="512" width="512" height="532.211" fill="url(#pattern8)"/>
+<rect id="SquareBgRare 2" x="-0.200012" y="256" width="256" height="266" fill="url(#pattern8)"/>
 </g>
 <g id="Rarity=Epic_2" clip-path="url(#clip8_35_104)">
-<rect id="SquareBgEpic 1" y="512" width="512" height="532.211" fill="url(#pattern9)"/>
+<rect id="SquareBgEpic 2" x="-0.400024" y="256" width="256" height="266" fill="url(#pattern9)"/>
 </g>
 <g id="Rarity=Legendary_2" clip-path="url(#clip9_35_104)">
-<rect id="SquareBgLegendary 1" y="512" width="512" height="532.211" fill="url(#pattern10)"/>
+<rect id="SquareBgLegendary 2" x="0.400024" y="256" width="256" height="266" fill="url(#pattern10)"/>
 </g>
 <g id="Rarity=Unique_2" clip-path="url(#clip10_35_104)">
-<rect id="SquareBgUnique 1" y="512" width="512" height="532.211" fill="url(#pattern11)"/>
+<rect id="SquareBgUnique 2" x="0.199951" y="256" width="256" height="266" fill="url(#pattern11)"/>
 </g>
 <g id="Rarity=Neutral_2" clip-path="url(#clip11_35_104)">
-<rect id="SquareBgNeutral 1" y="512" width="512" height="512" fill="url(#pattern12)"/>
+<rect id="SquareBgNeutral 2" y="256" width="256" height="266" fill="url(#pattern12)"/>
 </g>
 </g>
-<rect id="ThumbImage{{REI=ThumbImage,CENTER,LIMITW,LIMITH}}_2" y="512" width="512" height="512" fill="black" fill-opacity="0.01"/>
-<rect id="SquareOutline 1" y="512" width="512" height="512" fill="url(#pattern13)"/>
+<rect id="ThumbImage{{REI=ThumbImage,CENTER,LIMITW,LIMITH}}_2" y="256" width="256" height="256" fill="black" fill-opacity="0.01"/>
+<rect id="SquareOutline 2" y="256" width="256" height="256" fill="url(#pattern13)"/>
 </g>
 </g>
 <g id="BorderDecal{{SEL=Rarity}}" clip-path="url(#clip12_35_104)">
 <g id="Rarity=Common_3">
-<rect id="VertBorderCommon 1" y="706" width="512" height="318" fill="url(#pattern14)"/>
+<rect id="VertBorderCommon 2" y="348" width="256" height="164" fill="url(#pattern14)"/>
 </g>
 <g id="Rarity=Rare_3">
-<rect id="VertBorderRare 1" y="706" width="512" height="318" fill="url(#pattern15)"/>
+<rect id="VertBorderRare 2" x="-0.333374" y="348" width="256" height="164" fill="url(#pattern15)"/>
 </g>
 <g id="Rarity=Epic_3">
-<rect id="VertBorderEpic 1" y="706" width="512" height="318" fill="url(#pattern16)"/>
+<rect id="VertBorderEpic 2" x="0.333252" y="348" width="256" height="164" fill="url(#pattern16)"/>
 </g>
 <g id="Rarity=Legendary_3">
-<rect id="VertBorderLegendary 1" y="706" width="512" height="318" fill="url(#pattern17)"/>
+<rect id="VertBorderLegendary 2" y="348" width="256" height="164" fill="url(#pattern17)"/>
 </g>
 </g>
 <g id="Price{{SEL=PriceType}}">
-<g clip-path="url(#clip13_35_104)">
 <g id="PriceType=Both">
 <g id="CoinsBox">
-<rect id="CurBox 1" x="21" y="928" width="225" height="75" fill="url(#pattern18)"/>
-<rect id="Price{{REI=CoinsPrice,CENTER,LIMITW}}" x="92" y="936" width="147" height="60" fill="black" fill-opacity="0.01"/>
-<rect id="CurCoins 1" x="37" y="941" width="50" height="50" fill="url(#pattern19)"/>
+<rect id="CurBoxWhite 1" x="10.5" y="463.5" width="110" height="37" fill="url(#pattern18)"/>
+<rect id="Price{{REI=CoinsPrice,CENTER,LIMITW}}" width="70" height="29" transform="matrix(1 0 0 -1 42.5 495.75)" fill="black" fill-opacity="0.01"/>
+<rect id="CurCoins 2" x="16.5" y="469.75" width="24" height="24" fill="url(#pattern19)"/>
 </g>
 <g id="GemsBox">
-<rect id="CurBox 2" x="266" y="928" width="225" height="75" fill="url(#pattern20)"/>
-<rect id="Price{{REI=GemsPrice,CENTER,LIMITW}}" x="337" y="936" width="147" height="60" fill="black" fill-opacity="0.01"/>
-<rect id="CurGems 1" x="282" y="941" width="50" height="50" fill="url(#pattern21)"/>
+<rect id="CurBoxRed 1" x="135.5" y="463.5" width="110" height="37" fill="url(#pattern20)"/>
+<rect id="Price{{REI=GemsPrice,CENTER,LIMITW}}" width="71" height="29" transform="matrix(1 0 0 -1 170 495.5)" fill="black" fill-opacity="0.01"/>
+<rect id="CurGems 2" x="144" y="469.5" width="24" height="24" fill="url(#pattern21)"/>
 </g>
 </g>
 <g id="PriceType=Coins">
 <g id="CoinsBox_2">
-<rect id="CurBox 1_2" x="143.5" y="928" width="225" height="75" fill="url(#pattern22)"/>
-<rect id="Price{{REI=CoinsPrice,CENTER,LIMITW}}_2" x="214.5" y="936" width="147" height="60" fill="black" fill-opacity="0.01"/>
-<rect id="CurCoins 1_2" x="159.5" y="941" width="50" height="50" fill="url(#pattern23)"/>
+<rect id="CurBoxWhite 1_2" x="73" y="463.5" width="110" height="37" fill="url(#pattern22)"/>
+<rect id="Price{{REI=CoinsPrice,CENTER,LIMITW}}_2" width="70" height="29" transform="matrix(1 0 0 -1 105 495.75)" fill="black" fill-opacity="0.01"/>
+<rect id="CurCoins 2_2" x="79" y="469.75" width="24" height="24" fill="url(#pattern23)"/>
 </g>
 </g>
 <g id="PriceType=Gems">
 <g id="GemsBox_2">
-<rect id="CurBox 2_2" x="143.5" y="928" width="225" height="75" fill="url(#pattern24)"/>
-<rect id="Price{{REI=GemsPrice,CENTER,LIMITW}}_2" x="214.5" y="936" width="147" height="60" fill="black" fill-opacity="0.01"/>
-<rect id="CurGems 1_2" x="159.5" y="941" width="50" height="50" fill="url(#pattern25)"/>
+<rect id="CurBoxRed 1_2" x="73" y="463.5" width="110" height="37" fill="url(#pattern24)"/>
+<rect id="Price{{REI=GemsPrice,CENTER,LIMITW}}_2" width="71" height="29" transform="matrix(1 0 0 -1 107.5 495.5)" fill="black" fill-opacity="0.01"/>
+<rect id="CurGems 2_2" x="81.5" y="469.5" width="24" height="24" fill="url(#pattern25)"/>
 </g>
 </g>
 <g id="PriceType=None">
 <g id="RealBox">
-<rect id="CurBox 3" x="143.5" y="928" width="225" height="75" fill="url(#pattern26)"/>
-<rect id="Price{{REI=RealPrice,CENTER,LIMITW}}" x="158" y="936" width="199" height="60" fill="black" fill-opacity="0.01"/>
+<rect id="CurBoxYellow 1" x="73" y="463.5" width="110" height="37" fill="url(#pattern26)"/>
+<rect id="Price{{REI=RealPrice,CENTER,LIMITW}}" width="95" height="29" transform="matrix(1 0 0 -1 82.75 496)" fill="black" fill-opacity="0.01"/>
 </g>
 </g>
 </g>
-</g>
-<rect id="DescShort{{REI=ItemDescShort,LIMITW}}" x="21" y="893" width="475" height="26" fill="black" fill-opacity="0.01"/>
-<rect id="Title{{REI=ItemTitle,LIMITW}}" x="21" y="858" width="475" height="31" fill="black" fill-opacity="0.01"/>
+<rect id="DescShort{{REI=ItemDescShort,LIMITW}}" x="10" y="442" width="235" height="13" fill="black" fill-opacity="0.01"/>
+<rect id="Title{{REI=ItemTitle,LIMITW}}" x="10" y="425" width="235" height="15" fill="black" fill-opacity="0.01"/>
 <g id="RarityText{{SEL=Rarity}}">
 <g id="Rarity=Common_4">
-<text id="COMMON" fill="white" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="32" letter-spacing="0em"><tspan x="21" y="848.6">COMMON</tspan></text>
+<text id="COMMON" fill="white" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="16" letter-spacing="0em"><tspan x="10" y="420.3">COMMON</tspan></text>
 </g>
 <g id="Rarity=Rare_4">
-<text id="RARE" fill="#19B7F5" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="32" letter-spacing="0em"><tspan x="21" y="848.6">RARE</tspan></text>
+<text id="RARE" fill="#19B7F5" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="16" letter-spacing="0em"><tspan x="10" y="420.3">RARE</tspan></text>
 </g>
 <g id="Rarity=Epic_4">
-<text id="EPIC" fill="#DB81EB" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="32" letter-spacing="0em"><tspan x="21" y="848.6">EPIC</tspan></text>
+<text id="EPIC" fill="#DB81EB" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="16" letter-spacing="0em"><tspan x="10" y="420.3">EPIC</tspan></text>
 </g>
 <g id="Rarity=Legendary_4">
-<text id="LEGENDARY" fill="#BD9836" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="32" letter-spacing="0em"><tspan x="21" y="848.6">LEGENDARY</tspan></text>
+<text id="LEGENDARY" fill="#BD9836" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="16" letter-spacing="0em"><tspan x="10" y="420.3">LEGENDARY</tspan></text>
 </g>
 <g id="Rarity=Unique_3">
-<text id="UNIQUE" fill="#64A128" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="32" letter-spacing="0em"><tspan x="21" y="848.6">UNIQUE</tspan></text>
+<text id="UNIQUE" fill="#64A128" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="16" letter-spacing="0em"><tspan x="10" y="420.3">UNIQUE</tspan></text>
 </g>
 <g id="Rarity=Neutral_3">
-<text id="`" fill="white" fill-opacity="0.01" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="32" letter-spacing="0em"><tspan x="21" y="848.6">`</tspan></text>
+<text id="`" fill="white" fill-opacity="0.01" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="16" letter-spacing="0em"><tspan x="10" y="420.3">`</tspan></text>
 </g>
 </g>
 </g>
 <defs>
 <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image0_35_104" transform="scale(0.00164474 0.000776398)"/>
+<use xlink:href="#image0_35_104" transform="scale(0.00390625 0.00184502)"/>
 </pattern>
 <pattern id="pattern1" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image1_35_104" transform="scale(0.00164474 0.000776398)"/>
+<use xlink:href="#image1_35_104" transform="scale(0.00390625 0.00184502)"/>
 </pattern>
 <pattern id="pattern2" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image2_35_104" transform="scale(0.00164474 0.000776398)"/>
+<use xlink:href="#image2_35_104" transform="scale(0.00390625 0.00184502)"/>
 </pattern>
 <pattern id="pattern3" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image3_35_104" transform="scale(0.00164474 0.000776398)"/>
+<use xlink:href="#image3_35_104" transform="scale(0.00390625 0.00184502)"/>
 </pattern>
 <pattern id="pattern4" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image4_35_104" transform="scale(0.00164474 0.000776398)"/>
+<use xlink:href="#image4_35_104" transform="scale(0.00390625 0.00184502)"/>
 </pattern>
 <pattern id="pattern5" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image5_35_104" transform="scale(0.00164474 0.000776398)"/>
+<use xlink:href="#image5_35_104" transform="scale(0.00390625 0.00184502)"/>
 </pattern>
 <pattern id="pattern6" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image6_35_104" transform="scale(0.00195312 0.000976562)"/>
+<use xlink:href="#image6_35_104" transform="scale(0.00390625 0.00195312)"/>
 </pattern>
 <pattern id="pattern7" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image7_35_104" transform="scale(0.00164474 0.00158228)"/>
+<use xlink:href="#image7_35_104" transform="scale(0.00390625 0.0037594)"/>
 </pattern>
 <pattern id="pattern8" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image8_35_104" transform="scale(0.00164474 0.00158228)"/>
+<use xlink:href="#image8_35_104" transform="scale(0.00390625 0.0037594)"/>
 </pattern>
 <pattern id="pattern9" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image9_35_104" transform="scale(0.00164474 0.00158228)"/>
+<use xlink:href="#image9_35_104" transform="scale(0.00390625 0.0037594)"/>
 </pattern>
 <pattern id="pattern10" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image10_35_104" transform="scale(0.00164474 0.00158228)"/>
+<use xlink:href="#image10_35_104" transform="scale(0.00390625 0.0037594)"/>
 </pattern>
 <pattern id="pattern11" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image11_35_104" transform="scale(0.00164474 0.00158228)"/>
+<use xlink:href="#image11_35_104" transform="scale(0.00390625 0.0037594)"/>
 </pattern>
 <pattern id="pattern12" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image12_35_104" transform="scale(0.00164474)"/>
+<use xlink:href="#image12_35_104" transform="scale(0.00390625 0.0037594)"/>
 </pattern>
 <pattern id="pattern13" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image13_35_104" transform="scale(0.00195312)"/>
+<use xlink:href="#image13_35_104" transform="scale(0.00390625)"/>
 </pattern>
 <pattern id="pattern14" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image14_35_104" transform="matrix(0.00165563 0 0 0.00265837 -4.60861e-09 -0.0314465)"/>
+<use xlink:href="#image14_35_104" transform="scale(0.00390625 0.00609756)"/>
 </pattern>
 <pattern id="pattern15" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image15_35_104" transform="matrix(0.00165563 0 0 0.00265837 0 -0.0314476)"/>
+<use xlink:href="#image15_35_104" transform="scale(0.00390625 0.00609756)"/>
 </pattern>
 <pattern id="pattern16" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image16_35_104" transform="matrix(0.00165563 0 0 0.00265837 -4.60861e-09 -0.0314465)"/>
+<use xlink:href="#image16_35_104" transform="scale(0.00390625 0.00609756)"/>
 </pattern>
 <pattern id="pattern17" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image17_35_104" transform="matrix(0.00165563 0 0 0.00265837 -4.60861e-09 -0.0314465)"/>
+<use xlink:href="#image17_35_104" transform="scale(0.00390625 0.00609756)"/>
 </pattern>
 <pattern id="pattern18" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image18_35_104" transform="matrix(0.00381679 0 0 0.0114504 0 -0.00381679)"/>
+<use xlink:href="#image18_35_104" transform="scale(0.00909091 0.027027)"/>
 </pattern>
 <pattern id="pattern19" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image19_35_104" transform="scale(0.00195312)"/>
+<use xlink:href="#image19_35_104" transform="scale(0.0416667)"/>
 </pattern>
 <pattern id="pattern20" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image20_35_104" transform="matrix(0.00381679 0 0 0.0114504 0 -0.00381679)"/>
+<use xlink:href="#image20_35_104" transform="scale(0.00909091 0.027027)"/>
 </pattern>
 <pattern id="pattern21" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image21_35_104" transform="scale(0.00195312)"/>
+<use xlink:href="#image21_35_104" transform="scale(0.0416667)"/>
 </pattern>
 <pattern id="pattern22" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image18_35_104" transform="matrix(0.00381679 0 0 0.0114504 0 -0.00381679)"/>
+<use xlink:href="#image18_35_104" transform="scale(0.00909091 0.027027)"/>
 </pattern>
 <pattern id="pattern23" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image19_35_104" transform="scale(0.00195312)"/>
+<use xlink:href="#image19_35_104" transform="scale(0.0416667)"/>
 </pattern>
 <pattern id="pattern24" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image20_35_104" transform="matrix(0.00381679 0 0 0.0114504 0 -0.00381679)"/>
+<use xlink:href="#image20_35_104" transform="scale(0.00909091 0.027027)"/>
 </pattern>
 <pattern id="pattern25" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image21_35_104" transform="scale(0.00195312)"/>
+<use xlink:href="#image21_35_104" transform="scale(0.0416667)"/>
 </pattern>
 <pattern id="pattern26" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image22_35_104" transform="matrix(0.00381679 0 0 0.0114504 0 -0.00381679)"/>
+<use xlink:href="#image22_35_104" transform="scale(0.00909091 0.027027)"/>
 </pattern>
 <clipPath id="clip0_35_104">
-<rect width="512" height="1024" fill="white"/>
+<rect width="256" height="512" fill="white"/>
 </clipPath>
 <clipPath id="clip1_35_104">
-<rect width="512" height="1024" fill="white"/>
+<rect width="256" height="512" fill="white"/>
 </clipPath>
 <clipPath id="clip2_35_104">
-<rect width="512" height="1024" fill="white"/>
+<rect width="256" height="512" fill="white"/>
 </clipPath>
 <clipPath id="clip3_35_104">
-<rect width="512" height="1024" fill="white"/>
+<rect width="256" height="512" fill="white"/>
 </clipPath>
 <clipPath id="clip4_35_104">
-<rect width="512" height="1024" fill="white"/>
+<rect width="256" height="512" fill="white"/>
 </clipPath>
 <clipPath id="clip5_35_104">
-<rect width="512" height="1024" fill="white"/>
+<rect width="256" height="512" fill="white"/>
 </clipPath>
 <clipPath id="clip6_35_104">
-<rect width="512" height="512" fill="white" transform="translate(0 512)"/>
+<rect width="256" height="256" fill="white" transform="translate(0 256)"/>
 </clipPath>
 <clipPath id="clip7_35_104">
-<rect width="512" height="512" fill="white" transform="translate(0 512)"/>
+<rect width="256" height="256" fill="white" transform="translate(0 256)"/>
 </clipPath>
 <clipPath id="clip8_35_104">
-<rect width="512" height="512" fill="white" transform="translate(0 512)"/>
+<rect width="256" height="256" fill="white" transform="translate(0 256)"/>
 </clipPath>
 <clipPath id="clip9_35_104">
-<rect width="512" height="512" fill="white" transform="translate(0 512)"/>
+<rect width="256" height="256" fill="white" transform="translate(0 256)"/>
 </clipPath>
 <clipPath id="clip10_35_104">
-<rect width="512" height="512" fill="white" transform="translate(0 512)"/>
+<rect width="256" height="256" fill="white" transform="translate(0 256)"/>
 </clipPath>
 <clipPath id="clip11_35_104">
-<rect width="512" height="512" fill="white" transform="translate(0 512)"/>
+<rect width="256" height="256" fill="white" transform="translate(0 256)"/>
 </clipPath>
 <clipPath id="clip12_35_104">
-<rect width="512" height="328" fill="white" transform="translate(0 696)"/>
+<rect width="256" height="164" fill="white" transform="translate(0 348)"/>
 </clipPath>
-<clipPath id="clip13_35_104">
-<rect y="907" width="512" height="117" rx="5" fill="white"/>
-</clipPath>
-<image id="image0_35_104" data-name="VertBgCommon.png" width="608" height="1288" xlink:href="res/VertBgCommon.png"/>
-<image id="image1_35_104" data-name="VertBgRare.png" width="608" height="1288" xlink:href="res/VertBgRare.png"/>
-<image id="image2_35_104" data-name="VertBgEpic.png" width="608" height="1288" xlink:href="res/VertBgEpic.png"/>
-<image id="image3_35_104" data-name="VertBgLegendary.png" width="608" height="1288" xlink:href="res/VertBgLegendary.png"/>
-<image id="image4_35_104" data-name="VertBgUnique.png" width="608" height="1288" xlink:href="res/VertBgUnique.png"/>
-<image id="image5_35_104" data-name="VertBgNeutral.png" width="608" height="1288" xlink:href="res/VertBgNeutral.png"/>
-<image id="image6_35_104" data-name="VertOutline.png" width="512" height="1024" xlink:href="res/VertOutline.png"/>
-<image id="image7_35_104" data-name="SquareBgCommon.png" width="608" height="632" xlink:href="res/SquareBgCommon.png"/>
-<image id="image8_35_104" data-name="SquareBgRare.png" width="608" height="632" xlink:href="res/SquareBgRare.png"/>
-<image id="image9_35_104" data-name="SquareBgEpic.png" width="608" height="632" xlink:href="res/SquareBgEpic.png"/>
-<image id="image10_35_104" data-name="SquareBgLegendary.png" width="608" height="632" xlink:href="res/SquareBgLegendary.png"/>
-<image id="image11_35_104" data-name="SquareBgUnique.png" width="608" height="632" xlink:href="res/SquareBgUnique.png"/>
-<image id="image12_35_104" data-name="SquareBgNeutral.png" width="608" height="632" xlink:href="res/SquareBgNeutral.png"/>
-<image id="image13_35_104" data-name="SquareOutline.png" width="512" height="512" xlink:href="res/SquareOutline.png"/>
-<image id="image14_35_104" data-name="VertBorderCommon.png" width="604" height="388" xlink:href="res/VertBorderCommon.png"/>
-<image id="image15_35_104" data-name="VertBorderRare.png" width="604" height="388" xlink:href="res/VertBorderRare.png"/>
-<image id="image16_35_104" data-name="VertBorderEpic.png" width="604" height="388" xlink:href="res/VertBorderEpic.png"/>
-<image id="image17_35_104" data-name="VertBorderLegendary.png" width="604" height="388" xlink:href="res/VertBorderLegendary.png"/>
-<image id="image18_35_104" data-name="CurBoxWhite.png" width="262" height="88" xlink:href="res/CurBoxWhite.png"/>
-<image id="image19_35_104" data-name="CurCoins.png" width="512" height="512" xlink:href="res/CurCoins.png"/>
-<image id="image20_35_104" data-name="CurBoxRed.png" width="262" height="88" xlink:href="res/CurBoxRed.png"/>
-<image id="image21_35_104" data-name="CurGems.png" width="512" height="512" xlink:href="res/CurGems.png"/>
-<image id="image22_35_104" data-name="CurBoxYellow.png" width="262" height="88" xlink:href="res/CurBoxYellow.png"/>
+<image id="image0_35_104" data-name="VertBgCommon.png" width="256" height="542" xlink:href="res/VertBgCommon.png"/>
+<image id="image1_35_104" data-name="VertBgRare.png" width="256" height="542" xlink:href="res/VertBgRare.png"/>
+<image id="image2_35_104" data-name="VertBgEpic.png" width="256" height="542" xlink:href="res/VertBgEpic.png"/>
+<image id="image3_35_104" data-name="VertBgLegendary.png" width="256" height="542" xlink:href="res/VertBgLegendary.png"/>
+<image id="image4_35_104" data-name="VertBgUnique.png" width="256" height="542" xlink:href="res/VertBgUnique.png"/>
+<image id="image5_35_104" data-name="VertBgNeutral.png" width="256" height="542" xlink:href="res/VertBgNeutral.png"/>
+<image id="image6_35_104" data-name="VertOutline.png" width="256" height="512" xlink:href="res/VertOutline.png"/>
+<image id="image7_35_104" data-name="SquareBgCommon.png" width="256" height="266" xlink:href="res/SquareBgCommon.png"/>
+<image id="image8_35_104" data-name="SquareBgRare.png" width="256" height="266" xlink:href="res/SquareBgRare.png"/>
+<image id="image9_35_104" data-name="SquareBgEpic.png" width="256" height="266" xlink:href="res/SquareBgEpic.png"/>
+<image id="image10_35_104" data-name="SquareBgLegendary.png" width="256" height="266" xlink:href="res/SquareBgLegendary.png"/>
+<image id="image11_35_104" data-name="SquareBgUnique.png" width="256" height="266" xlink:href="res/SquareBgUnique.png"/>
+<image id="image12_35_104" data-name="SquareBgNeutral.png" width="256" height="266" xlink:href="res/SquareBgNeutral.png"/>
+<image id="image13_35_104" data-name="SquareOutline.png" width="256" height="256" xlink:href="res/SquareOutline.png"/>
+<image id="image14_35_104" data-name="VertBorderCommon.png" width="256" height="164" xlink:href="res/VertBorderCommon.png"/>
+<image id="image15_35_104" data-name="VertBorderRare.png" width="256" height="164" xlink:href="res/VertBorderRare.png"/>
+<image id="image16_35_104" data-name="VertBorderEpic.png" width="256" height="164" xlink:href="res/VertBorderEpic.png"/>
+<image id="image17_35_104" data-name="VertBorderLegendary.png" width="256" height="164" xlink:href="res/VertBorderLegendary.png"/>
+<image id="image18_35_104" data-name="CurBoxWhite.png" width="110" height="37" xlink:href="res/CurBoxWhite.png"/>
+<image id="image19_35_104" data-name="CurCoins.png" width="24" height="24" xlink:href="res/CurCoins.png"/>
+<image id="image20_35_104" data-name="CurBoxRed.png" width="110" height="37" xlink:href="res/CurBoxRed.png"/>
+<image id="image21_35_104" data-name="CurGems.png" width="24" height="24" xlink:href="res/CurGems.png"/>
+<image id="image22_35_104" data-name="CurBoxYellow.png" width="110" height="37" xlink:href="res/CurBoxYellow.png"/>
 </defs>
 </svg>

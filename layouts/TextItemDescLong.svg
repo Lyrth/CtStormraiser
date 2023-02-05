@@ -1,3 +1,0 @@
-<svg fill="none" xmlns="http://www.w3.org/2000/svg">
-<text id="ItemDescLong" fill="#D0D0D0" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="24" letter-spacing="0em"><tspan x="0" y="16.7">{{$ItemDescLong}}</tspan></text>
-</svg>

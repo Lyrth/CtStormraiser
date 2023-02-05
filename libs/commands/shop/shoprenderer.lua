@@ -265,7 +265,7 @@ function ShopRenderer.generate(vars, outPath)
     local fn = layoutDir..'/'..outPath:match("[^\\/]+$")..'.svg'
 
     fs.writeFileSync(fn, xml)
-    vips.Image.new_from_file(fn..'[dpi=36]'):write_to_file(outPath)
+    vips.Image.new_from_file(fn):write_to_file(outPath)
     fs.unlinkSync(fn)
     collectgarbage()
     collectgarbage()

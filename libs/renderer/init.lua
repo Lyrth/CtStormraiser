@@ -54,7 +54,7 @@ function Renderer.imageText(name, value)
 
     local svg = assert(fs.readFileSync(path.join(LAYOUT_DIR, 'Text'..name..'.svg')))
     svg = svg:gsub('{{$'..pesc(name)..'}}', pesc(tostring(value)))
-    return vips.Image.new_from_buffer(svg, "dpi=75")
+    return vips.Image.new_from_buffer(svg)
 end
 
 function Renderer.imageBinary(str)

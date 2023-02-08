@@ -1,3 +1,3 @@
 <svg fill="none" xmlns="http://www.w3.org/2000/svg">
-<text id="ShopTitle" fill="#FFD27A" stroke="black" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="64" letter-spacing="0em"><tspan x="-4" y="45">{{$ShopTitle}}</tspan></text>
+<text id="{{$ShopTitle}}" fill="#FFD27A" stroke="black" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="84" letter-spacing="0em"><tspan x="-2" y="63.7">{{$ShopTitle}}</tspan></text>
 </svg>

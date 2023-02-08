@@ -1,68 +1,109 @@
---[[=============================================--
--- shoprenderer.lua
--- SVG renderer and parser for shop image generation
---
---
--- SPDX-License-Identifier: GPL-3.0-only
--- Author: Lyrthras
---=============================================]]--
+
 
 local fs = require 'fs'
+local path = require 'path'
+local vips = require 'vips'
 local base64 = require 'base64'
 
-local vips = require 'vips'
+local pesc = require 'util'.patternEscape
 local slaxml = require 'slaxdom'
 
 
----
-
-local layoutDir = 'layouts'
+--=============================================--
 
 
----
+local LAYOUT_DIR = 'layouts'
+local DEBUG = true
 
-local function pesc(str)
-    return (str:gsub("([^%w])", "%%%1"))
+
+--=============================================--
+
+
+local Renderer = {}
+
+function Renderer.setup()
+    if Renderer.doneSetup then return end
+    Renderer.doneSetup = true
+
+    vips.cache_set_max(0)
+    vips.leak_set(DEBUG)
+
+    Renderer._preloadFonts()
 end
 
-local function imageText(name, value)
-    local svg = assert(fs.readFileSync(('%s/Text%s.svg'):format(layoutDir, name)))
+-- layout: e.g. 'MainArea'
+function Renderer.render(layout, vars, outFile)
+    Renderer.setup()
+
+    local svg = assert(fs.readFileSync(path.join(LAYOUT_DIR, layout..'.svg')))
+    local dom = slaxml:dom(svg, { stripWhitespace = true })
+
+    Renderer._parse(dom, vars)
+    svg = slaxml:xml(dom)
+
+    local fn = path.join(LAYOUT_DIR, path.basename(outFile)..'.svg')
+    fs.writeFileSync(fn, svg)
+    vips.Image.new_from_file(fn):write_to_file(outFile)
+    fs.unlinkSync(fn)
+    collectgarbage()
+    collectgarbage()
+end
+
+function Renderer.imageText(name, value)
+    Renderer.setup()
+
+    local svg = assert(fs.readFileSync(path.join(LAYOUT_DIR, 'Text'..name..'.svg')))
     svg = svg:gsub('{{$'..pesc(name)..'}}', pesc(tostring(value)))
     return vips.Image.new_from_buffer(svg, "dpi=75")
 end
 
-local function imageLongDesc(text)
-    local image = vips.Image.text(text, {width = 512, dpi = 75, font="LT Museum 24"})
-    local overlay = image:new_from_image {0xD0, 0xD0, 0xD0}:copy {interpretation = 'srgb'}
-    overlay = overlay:bandjoin(image)
-    return overlay
-end
-
-local function imageBinary(str)
+function Renderer.imageBinary(str)
     return vips.Image.new_from_buffer(str)
 end
 
-local function depth(node)
-    local ndepth = 0
-    local parent = node.parent
-    while parent do
-        parent = parent.parent
-        ndepth = ndepth + 1
+function Renderer._preloadFonts()
+    local fonts = {'LTMuseum-Reg.ttf','LTMuseum-Bold.ttf','LTMuseum-Ital.ttf'}
+    for _,fn in ipairs(fonts) do
+        vips.Image.text(".", {width=4, font="LT Museum", fontfile=path.join(LAYOUT_DIR, 'fonts', fn)})
     end
-    return ndepth
+end
+
+local ops = {}
+local search
+function Renderer._parse(dom, vars)
+    search(dom, function(node)
+        if node.attr and node.attr.id then
+            local opName, opArg = node.attr.id:match('{{([^$=]+)=([^}]+)}}')
+            if opName then
+                local args = {}
+                for arg in opArg:gmatch('[^,]+') do
+                    args[#args+1] = arg
+                end
+                if ops[opName] then
+                    ops[opName](args, node, vars)
+                end
+            end
+        end
+    end)
 end
 
 
+--=============================================--
 
--- <image id="image1_0_1" data-name="ShopTitleBg.png" width="1144" height="236" xlink:href="res/ShopTitleBg.png"/>
+
+search = function(node, cb)
+    if not node.kids then return end
+    for i,ch in ipairs(node.kids) do
+        cb(ch)
+        if node.kids[i].kids then
+            search(node.kids[i], cb)
+        end
+    end
+end
+
 -- attrs is {{'key1', 'val1'}, {'key2', 'val2'}, ...}
 local function makeElement(name, attrs)
-    local elem = {
-        type = 'element',
-        name = name,
-        kids = {},
-        el = {}
-    }
+    local elem = {type = 'element', name = name, kids = {}, el = {}}
     local attr = {}
     for i,v in ipairs(attrs) do
         attr[i] = {
@@ -83,34 +124,8 @@ local function getCenteredOffset(rectX, rectY, rectW, rectH, imgW, imgH)
 end
 
 
-local ops = {}
+--=============================================--
 
-local function search(node, cb)
-    if not node.kids then return end
-    for i,ch in ipairs(node.kids) do
-        cb(ch)
-        if node.kids[i].kids then
-            search(node.kids[i], cb)
-        end
-    end
-end
-
-local function parse(dom, varstb)
-    search(dom, function(node)
-        if node.attr and node.attr.id then
-            local opName, opArg = node.attr.id:match('{{([^$=]+)=([^}]+)}}')
-            if opName then
-                local args = {}
-                for arg in opArg:gmatch('[^,]+') do
-                    args[#args+1] = arg
-                end
-                if ops[opName] then
-                    ops[opName](args, node, varstb)
-                end
-            end
-        end
-    end)
-end
 
 function ops.REI(args, node, varstb)
     local varName = table.remove(args, 1)
@@ -137,7 +152,7 @@ function ops.REI(args, node, varstb)
             {'y', tostring(y)},
             {'width', tostring(w)},
             {'height', tostring(h)},
-            {'href', 'data:image/png;base64,'..base64.encode(tostring(im:write_to_buffer(".png")))}
+            {'href', 'data:image/png;base64,'..base64.encode(tostring(im:write_to_buffer(".png")))}     -- TODOOOOOOOOOOO
         }))
     end
 end
@@ -148,7 +163,7 @@ function ops.REP(args, node, varstb)
         error("Misconfigured REP: missing _CONFIGVAR_ or _VARSTABLEVAR_")
     end
 
-    local _svg = assert(fs.readFileSync(('%s/%s'):format(layoutDir, filename)))
+    local _svg = assert(fs.readFileSync(path.join(LAYOUT_DIR, filename)))
     local _dom = slaxml:dom(_svg, { stripWhitespace = true })
 
     local n = #varsArray
@@ -207,8 +222,7 @@ function ops.REP(args, node, varstb)
                 slaxml:attr(node1, nil, 'id', node1.attr.id..'__svg_'..i)
             end
         end)
-        parse(newDom, vars)
-
+        Renderer._parse(newDom, vars)
         slaxml:reparent(newDom.root, newNode)
 
         ::continue::
@@ -238,42 +252,7 @@ function ops.SEL(args, node, varstb)
 end
 
 
----
+--=============================================--
 
 
-local svg = nil
-
----@class ShopRenderer
-local ShopRenderer = {}
-
-function ShopRenderer.setup()
-    if svg then return end
-    -- load the font files for vips to use
-    vips.Image.text(".", {width = 512, font="LT Museum", fontfile=layoutDir..'/fonts/LTMuseum-Reg.ttf'})
-    vips.Image.text(".", {width = 512, font="LT Museum", fontfile=layoutDir..'/fonts/LTMuseum-Bold.ttf'})
-    vips.Image.text(".", {width = 512, font="LT Museum", fontfile=layoutDir..'/fonts/LTMuseum-Ital.ttf'})
-
-    svg = assert(fs.readFileSync(layoutDir..'/MainArea.svg'))
-end
-
-function ShopRenderer.generate(vars, outPath)
-    ShopRenderer.setup()
-    local dom = slaxml:dom(svg, { stripWhitespace = true })
-    parse(dom, vars)
-    local xml = slaxml:xml(dom)
-
-    local fn = layoutDir..'/'..outPath:match("[^\\/]+$")..'.svg'
-
-    fs.writeFileSync(fn, xml)
-    vips.Image.new_from_file(fn):write_to_file(outPath)
-    fs.unlinkSync(fn)
-    collectgarbage()
-    collectgarbage()
-end
-
-ShopRenderer.imageBinary = imageBinary
-ShopRenderer.imageText = imageText
-ShopRenderer.imageLongDesc = imageLongDesc
-
-
-return ShopRenderer
+return Renderer

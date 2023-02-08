@@ -6,14 +6,13 @@ local function __thread__(_sectionsSorted) coroutine.wrap(function()
 
         local util = require 'util'
         local logins = require 'ctlogins'
-        local ShopRenderer = require 'commands/shop/shoprenderer'
+        local Renderer = require 'renderer'
 
-        ShopRenderer.setup()
         local ct = logins.getMain()
 
         local sectionsSorted = util.jsonAssert(json.decode(_sectionsSorted))
 
-        local footer = ShopRenderer.imageText('Footer', 'Century Shop Display beta. Displayed items may or may not accurately represent actual in-game items. Assets used are © 2023 Playwing.')
+        local footer = Renderer.imageText('Footer', 'Century Shop Display beta. Displayed items may or may not accurately represent actual in-game items. Assets used are © 2023 Playwing.')
         local i = 0
         while i < #sectionsSorted do
             i = i + 1
@@ -48,7 +47,7 @@ local function __thread__(_sectionsSorted) coroutine.wrap(function()
                 shopTitle = ct:getLocalization('MENU', sectionNameId) or 'Other'
             end
             local imVars = {
-                ShopTitle = ShopRenderer.imageText('ShopTitle', shopTitle),
+                ShopTitle = Renderer.imageText('ShopTitle', shopTitle),
                 Footer = footer,
                 CarouselConfig = { centered = true, maxcols = 6, xpad = 40 },
                 Items = {}
@@ -67,10 +66,10 @@ local function __thread__(_sectionsSorted) coroutine.wrap(function()
                 local contType = item.square and 'Square' or 'Vert'
                 local thumbName = pkg.texPaths.ShopMenuIcon and pkg.texPaths.ShopMenuIcon:match('[^.]+$') or (contType .. 'Placeholder')
                 local vars = {
-                    ThumbImage = ShopRenderer.imageBinary(ct:getThumbnail(thumbName .. '.png')),
-                    ItemTitle = ShopRenderer.imageText('ItemTitle', util.locresFmt(name:upper())),
-                    ItemDescShort = ShopRenderer.imageText('ItemDescShort', util.locresFmt(desc)),
-                    ItemDescLong = ShopRenderer.imageLongDesc(util.locresFmt(table.concat(longDesc, '\n\n'))),
+                    ThumbImage = Renderer.imageBinary(ct:getThumbnail(thumbName .. '.png')),
+                    ItemTitle = Renderer.imageText('ItemTitle', util.locresFmt(name:upper())),
+                    ItemDescShort = Renderer.imageText('ItemDescShort', util.locresFmt(desc)),
+                    -- ItemDescLong = Renderer.imageLongDesc(util.locresFmt(table.concat(longDesc, '\n\n'))),
                     ContainerType = contType,
                     Rarity = pkg.rarity,
                 }
@@ -78,23 +77,23 @@ local function __thread__(_sectionsSorted) coroutine.wrap(function()
 
                 if item.RM > 0 or (item.SC == 0 and item.HC == 0) then
                     vars.PriceType = 'None'
-                    vars.RealPrice = ShopRenderer.imageText('Price', item.RM == 0 and 'FREE' or ('€'..(item.RM/100)))
+                    vars.RealPrice = Renderer.imageText('Price', item.RM == 0 and 'FREE' or ('€'..(item.RM/100)))
                 elseif item.SC == 0 then
                     vars.PriceType = 'Gems'
-                    vars.GemsPrice = ShopRenderer.imageText('Price', item.HC)
+                    vars.GemsPrice = Renderer.imageText('Price', item.HC)
                 elseif item.HC == 0 then
                     vars.PriceType = 'Coins'
-                    vars.CoinsPrice = ShopRenderer.imageText('Price', item.SC)
+                    vars.CoinsPrice = Renderer.imageText('Price', item.SC)
                 else
                     vars.PriceType = 'Both'
-                    vars.CoinsPrice = ShopRenderer.imageText('Price', item.SC)
-                    vars.GemsPrice = ShopRenderer.imageText('Price', item.HC)
+                    vars.CoinsPrice = Renderer.imageText('Price', item.SC)
+                    vars.GemsPrice = Renderer.imageText('Price', item.HC)
                 end
 
                 ::continue::
             end
 
-            ShopRenderer.generate(imVars, 'storage/Shop'..i..'.png')
+            Renderer.render('MainArea', imVars, 'storage/Shop'..i..'.png')
         end
 
         require'fs'.writeFileSync('storage/shop.done', tostring(#sectionsSorted))
@@ -106,6 +105,9 @@ local function __thread__(_sectionsSorted) coroutine.wrap(function()
     end
 end)() end
 
+
+-- must be loaded in main thread first
+require 'vips'
 
 local fs = require 'fs'
 local json = require 'json'

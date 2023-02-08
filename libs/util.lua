@@ -42,6 +42,10 @@ local function sendErrorToOwner(client, err)
     client:getUser('368727799189733376'):send(("An error has occured! ```\n%s\n```"):format(err))
 end
 
+local function patternEscape(str)
+    return (str:gsub("([^%w])", "%%%1"))
+end
+
 
 
 -- return: sha256 base64
@@ -141,6 +145,7 @@ return {
     sendErrorToOwner = sendErrorToOwner,
     parseServerDate = parseServerDate,
     jsonAssert = jsonAssert,
+    patternEscape = patternEscape,
     tbHash = tbHash,
     cleanTable = cleanTable,
     locresFmt = locresFmt,

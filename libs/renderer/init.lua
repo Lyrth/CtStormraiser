@@ -8,11 +8,14 @@ local base64 = require 'base64'
 local pesc = require 'util'.patternEscape
 local slaxml = require 'slaxdom'
 
+local interm = require 'renderer/interm'
+
 
 --=============================================--
 
 
 local LAYOUT_DIR = 'layouts'
+local TEMP_DIR = path.join(LAYOUT_DIR, '_tmp')
 local DEBUG = true
 
 
@@ -37,6 +40,8 @@ function Renderer.render(layout, vars, outFile)
 
     local svg = assert(fs.readFileSync(path.join(LAYOUT_DIR, layout..'.svg')))
     local dom = slaxml:dom(svg, { stripWhitespace = true })
+    vars._rootSettings = {workdir = TEMP_DIR..(os.clock()*1000)}
+    fs.mkdirpSync(vars._rootSettings.workdir)
 
     Renderer._parse(dom, vars)
     svg = slaxml:xml(dom)
@@ -52,13 +57,11 @@ end
 function Renderer.imageText(name, value)
     Renderer.setup()
 
-    local svg = assert(fs.readFileSync(path.join(LAYOUT_DIR, 'Text'..name..'.svg')))
-    svg = svg:gsub('{{$'..pesc(name)..'}}', pesc(tostring(value)))
-    return vips.Image.new_from_buffer(svg)
+    return interm.SvgTextGen.new(name, value)
 end
 
 function Renderer.imageBinary(str)
-    return vips.Image.new_from_buffer(str)
+    return vips.Image.new_from_buffer(str)      -- TODO AS PATH INSTEAD
 end
 
 function Renderer._preloadFonts()
@@ -132,10 +135,11 @@ function ops.REI(args, node, varstb)
     for i in ipairs(args) do args[table.remove(args, i):lower()] = true end
 
     local im = varstb[varName]
+    local rx, ry = tonumber(node.attr.x or 0), tonumber(node.attr.y or 0)
+    local rw, rh = tonumber(node.attr.width), tonumber(node.attr.height)
     if type(im) == 'table' and im.vimage then
-        local x, y = tonumber(node.attr.x or 0), tonumber(node.attr.y or 0)
+        local x, y = rx, ry
         local w, h = tonumber(im:width()), tonumber(im:height())
-        local rw, rh = tonumber(node.attr.width), tonumber(node.attr.height)
 
         local fac = math.min(args.limitw and rw/w or 1, args.limith and rh/h or 1)
         if fac < 0.99 then
@@ -144,7 +148,7 @@ function ops.REI(args, node, varstb)
         end
 
         if args.center then
-            x, y = getCenteredOffset(x, y, rw, rh, w, h)
+            x, y = getCenteredOffset(rx, ry, rw, rh, w, h)
         end
 
         slaxml:replace(node, makeElement('image', {
@@ -152,7 +156,24 @@ function ops.REI(args, node, varstb)
             {'y', tostring(y)},
             {'width', tostring(w)},
             {'height', tostring(h)},
-            {'href', 'data:image/png;base64,'..base64.encode(tostring(im:write_to_buffer(".png")))}     -- TODOOOOOOOOOOO
+            {'href', 'data:image/png;base64,'..base64.encode(tostring(im:write_to_buffer(".png")))}
+        }))
+    elseif type(im) == 'table' and im._processable then
+        local outFile = path.join(varstb._rootSettings.workdir, im:getUniqueName()..'.png')
+        local png = im:generate(outFile, args.limitw and rw or nil, args.limith and rh or nil)
+
+        local x, y = rx, ry
+        local w, h = tonumber(png:width()), tonumber(png:height())
+        if args.center then
+            x, y = getCenteredOffset(rx, ry, rw, rh, w, h)
+        end
+
+        slaxml:replace(node, makeElement('image', {
+            {'x', tostring(x)},
+            {'y', tostring(y)},
+            {'width', tostring(w)},
+            {'height', tostring(h)},
+            {'href', path.relative(LAYOUT_DIR, outFile):gsub('\\','/')}
         }))
     end
 end
@@ -222,6 +243,11 @@ function ops.REP(args, node, varstb)
                 slaxml:attr(node1, nil, 'id', node1.attr.id..'__svg_'..i)
             end
         end)
+        vars._rootSettings = {}
+        for k,v in pairs(varstb._rootSettings) do
+            vars._rootSettings[k] = v
+        end
+
         Renderer._parse(newDom, vars)
         slaxml:reparent(newDom.root, newNode)
 

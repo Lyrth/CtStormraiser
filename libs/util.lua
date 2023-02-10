@@ -39,7 +39,7 @@ end
 
 ---@param client Client
 local function sendErrorToOwner(client, err)
-    client:getUser('368727799189733376'):send(("An error has occured! ```\n%s\n```"):format(err))
+    client:getUser('368727799189733376'):send(("An error has occured! ```\n%s\n```"):format(err:sub(1900)))
 end
 
 local function patternEscape(str)

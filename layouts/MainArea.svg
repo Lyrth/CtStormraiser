@@ -7,7 +7,7 @@
 <g mask="url(#mask0_0_1)">
 <rect id="Background 1" width="1920" height="1080" fill="url(#pattern0)"/>
 <rect id="Footer{{REI=Footer}}" x="108" y="1038" width="977" height="11" fill="black" fill-opacity="0.01"/>
-<rect id="BottomOrn 1" x="504" y="896" width="912" height="220" fill="url(#pattern1)"/>
+<rect id="BottomOrn 1" x="504" y="900" width="912" height="220" fill="url(#pattern1)"/>
 <rect id="ItemCarousel{{REP=ItemContainer.svg,CarouselConfig,Items}}" y="320" width="1920" height="512" fill="black" fill-opacity="0.01"/>
 <rect id="ShopTitleBg 1" x="389" y="36" width="1144" height="220" fill="url(#pattern2)"/>
 <rect id="ShopTitle{{REI=ShopTitle,CENTER,LIMITH}}" x="711" y="110" width="500" height="95" fill="black" fill-opacity="0.01"/>

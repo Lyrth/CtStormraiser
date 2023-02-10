@@ -68,26 +68,26 @@
 <g id="PriceType=Both">
 <g id="CoinsBox">
 <rect id="CurBoxWhite 1" x="10.5" y="463.5" width="110" height="37" fill="url(#pattern18)"/>
-<rect id="Price{{REI=CoinsPrice,CENTER,LIMITW}}" x="44" y="468" width="72" height="28" fill="black" fill-opacity="0.01"/>
+<rect id="Price{{REI=CoinsPrice,CENTER,LIMITW}}" x="42" y="468" width="72" height="28" fill="black" fill-opacity="0.01"/>
 <rect id="CurCoins 2" x="16" y="470" width="24" height="24" fill="url(#pattern19)"/>
 </g>
 <g id="GemsBox">
 <rect id="CurBoxRed 1" x="135.5" y="463.5" width="110" height="37" fill="url(#pattern20)"/>
-<rect id="Price{{REI=GemsPrice,CENTER,LIMITW}}" x="169" y="468" width="72" height="28" fill="black" fill-opacity="0.01"/>
+<rect id="Price{{REI=GemsPrice,CENTER,LIMITW}}" x="167" y="468" width="72" height="28" fill="black" fill-opacity="0.01"/>
 <rect id="CurGems 2" x="144" y="470" width="24" height="24" fill="url(#pattern21)"/>
 </g>
 </g>
 <g id="PriceType=Coins">
 <g id="CoinsBox_2">
 <rect id="CurBoxWhite 1_2" x="73" y="463.5" width="110" height="37" fill="url(#pattern22)"/>
-<rect id="Price{{REI=CoinsPrice,CENTER,LIMITW}}_2" x="107" y="468" width="72" height="28" fill="black" fill-opacity="0.01"/>
+<rect id="Price{{REI=CoinsPrice,CENTER,LIMITW}}_2" x="105" y="468" width="72" height="28" fill="black" fill-opacity="0.01"/>
 <rect id="CurCoins 2_2" x="79" y="470" width="24" height="24" fill="url(#pattern23)"/>
 </g>
 </g>
 <g id="PriceType=Gems">
 <g id="GemsBox_2">
 <rect id="CurBoxRed 1_2" x="73" y="463.5" width="110" height="37" fill="url(#pattern24)"/>
-<rect id="Price{{REI=GemsPrice,CENTER,LIMITW}}_2" x="107" y="468" width="72" height="28" fill="black" fill-opacity="0.01"/>
+<rect id="Price{{REI=GemsPrice,CENTER,LIMITW}}_2" x="106" y="468" width="72" height="28" fill="black" fill-opacity="0.01"/>
 <rect id="CurGems 2_2" x="82" y="470" width="24" height="24" fill="url(#pattern25)"/>
 </g>
 </g>

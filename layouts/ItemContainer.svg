@@ -7,16 +7,16 @@
 <rect id="VertBgCommon 2" width="256" height="542" fill="url(#pattern0)"/>
 </g>
 <g id="Rarity=Rare" clip-path="url(#clip1_35_104)">
-<rect id="VertBgRare 2" x="-0.400024" width="256" height="542" fill="url(#pattern1)"/>
+<rect id="VertBgRare 2" width="256" height="542" fill="url(#pattern1)"/>
 </g>
 <g id="Rarity=Epic" clip-path="url(#clip2_35_104)">
-<rect id="VertBgEpic 2" x="0.199951" width="256" height="542" fill="url(#pattern2)"/>
+<rect id="VertBgEpic 2" width="256" height="542" fill="url(#pattern2)"/>
 </g>
 <g id="Rarity=Legendary" clip-path="url(#clip3_35_104)">
-<rect id="VertBgLegendary 2" x="-0.200073" width="256" height="542" fill="url(#pattern3)"/>
+<rect id="VertBgLegendary 2" width="256" height="542" fill="url(#pattern3)"/>
 </g>
 <g id="Rarity=Unique" clip-path="url(#clip4_35_104)">
-<rect id="VertBgUnique 2" x="0.399902" width="256" height="542" fill="url(#pattern4)"/>
+<rect id="VertBgUnique 2" width="256" height="542" fill="url(#pattern4)"/>
 </g>
 <g id="Rarity=Neutral" clip-path="url(#clip5_35_104)">
 <rect id="VertBgNeutral 2" width="256" height="542" fill="url(#pattern5)"/>
@@ -31,16 +31,16 @@
 <rect id="SquareBgCommon 2" y="256" width="256" height="266" fill="url(#pattern7)"/>
 </g>
 <g id="Rarity=Rare_2" clip-path="url(#clip7_35_104)">
-<rect id="SquareBgRare 2" x="-0.200012" y="256" width="256" height="266" fill="url(#pattern8)"/>
+<rect id="SquareBgRare 2" y="256" width="256" height="266" fill="url(#pattern8)"/>
 </g>
 <g id="Rarity=Epic_2" clip-path="url(#clip8_35_104)">
-<rect id="SquareBgEpic 2" x="-0.400024" y="256" width="256" height="266" fill="url(#pattern9)"/>
+<rect id="SquareBgEpic 2" y="256" width="256" height="266" fill="url(#pattern9)"/>
 </g>
 <g id="Rarity=Legendary_2" clip-path="url(#clip9_35_104)">
-<rect id="SquareBgLegendary 2" x="0.400024" y="256" width="256" height="266" fill="url(#pattern10)"/>
+<rect id="SquareBgLegendary 2" y="256" width="256" height="266" fill="url(#pattern10)"/>
 </g>
 <g id="Rarity=Unique_2" clip-path="url(#clip10_35_104)">
-<rect id="SquareBgUnique 2" x="0.199951" y="256" width="256" height="266" fill="url(#pattern11)"/>
+<rect id="SquareBgUnique 2" y="256" width="256" height="266" fill="url(#pattern11)"/>
 </g>
 <g id="Rarity=Neutral_2" clip-path="url(#clip11_35_104)">
 <rect id="SquareBgNeutral 2" y="256" width="256" height="266" fill="url(#pattern12)"/>
@@ -55,10 +55,10 @@
 <rect id="VertBorderCommon 2" y="348" width="256" height="164" fill="url(#pattern14)"/>
 </g>
 <g id="Rarity=Rare_3">
-<rect id="VertBorderRare 2" x="-0.333374" y="348" width="256" height="164" fill="url(#pattern15)"/>
+<rect id="VertBorderRare 2" y="348" width="256" height="164" fill="url(#pattern15)"/>
 </g>
 <g id="Rarity=Epic_3">
-<rect id="VertBorderEpic 2" x="0.333252" y="348" width="256" height="164" fill="url(#pattern16)"/>
+<rect id="VertBorderEpic 2" y="348" width="256" height="164" fill="url(#pattern16)"/>
 </g>
 <g id="Rarity=Legendary_3">
 <rect id="VertBorderLegendary 2" y="348" width="256" height="164" fill="url(#pattern17)"/>
@@ -69,32 +69,32 @@
 <g id="CoinsBox">
 <rect id="CurBoxWhite 1" x="10.5" y="463.5" width="110" height="37" fill="url(#pattern18)"/>
 <rect id="Price{{REI=CoinsPrice,CENTER,LIMITW}}" x="44" y="468" width="72" height="28" fill="black" fill-opacity="0.01"/>
-<rect id="CurCoins 2" x="16.5" y="469.75" width="24" height="24" fill="url(#pattern19)"/>
+<rect id="CurCoins 2" x="16" y="470" width="24" height="24" fill="url(#pattern19)"/>
 </g>
 <g id="GemsBox">
 <rect id="CurBoxRed 1" x="135.5" y="463.5" width="110" height="37" fill="url(#pattern20)"/>
 <rect id="Price{{REI=GemsPrice,CENTER,LIMITW}}" x="169" y="468" width="72" height="28" fill="black" fill-opacity="0.01"/>
-<rect id="CurGems 2" x="144" y="469.5" width="24" height="24" fill="url(#pattern21)"/>
+<rect id="CurGems 2" x="144" y="470" width="24" height="24" fill="url(#pattern21)"/>
 </g>
 </g>
 <g id="PriceType=Coins">
 <g id="CoinsBox_2">
 <rect id="CurBoxWhite 1_2" x="73" y="463.5" width="110" height="37" fill="url(#pattern22)"/>
-<rect id="Price{{REI=CoinsPrice,CENTER,LIMITW}}_2" x="107.125" y="468.188" width="72" height="28" fill="black" fill-opacity="0.01"/>
-<rect id="CurCoins 2_2" x="79" y="469.75" width="24" height="24" fill="url(#pattern23)"/>
+<rect id="Price{{REI=CoinsPrice,CENTER,LIMITW}}_2" x="107" y="468" width="72" height="28" fill="black" fill-opacity="0.01"/>
+<rect id="CurCoins 2_2" x="79" y="470" width="24" height="24" fill="url(#pattern23)"/>
 </g>
 </g>
 <g id="PriceType=Gems">
 <g id="GemsBox_2">
 <rect id="CurBoxRed 1_2" x="73" y="463.5" width="110" height="37" fill="url(#pattern24)"/>
-<rect id="Price{{REI=GemsPrice,CENTER,LIMITW}}_2" x="107.125" y="468.188" width="72" height="28" fill="black" fill-opacity="0.01"/>
-<rect id="CurGems 2_2" x="81.5" y="469.5" width="24" height="24" fill="url(#pattern25)"/>
+<rect id="Price{{REI=GemsPrice,CENTER,LIMITW}}_2" x="107" y="468" width="72" height="28" fill="black" fill-opacity="0.01"/>
+<rect id="CurGems 2_2" x="82" y="470" width="24" height="24" fill="url(#pattern25)"/>
 </g>
 </g>
 <g id="PriceType=None">
 <g id="RealBox">
 <rect id="CurBoxYellow 1" x="73" y="463.5" width="110" height="37" fill="url(#pattern26)"/>
-<rect id="Price{{REI=RealPrice,CENTER,LIMITW}}" x="81" y="468.25" width="94" height="28" fill="black" fill-opacity="0.01"/>
+<rect id="Price{{REI=RealPrice,CENTER,LIMITW}}" x="81" y="468" width="94" height="28" fill="black" fill-opacity="0.01"/>
 </g>
 </g>
 </g>
@@ -102,22 +102,22 @@
 <rect id="Title{{REI=ItemTitle,LIMITW}}" x="10" y="419" width="235" height="23" fill="black" fill-opacity="0.01"/>
 <g id="RarityText{{SEL=Rarity}}">
 <g id="Rarity=Common_4">
-<text id="COMMON" fill="white" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="16" letter-spacing="0em"><tspan x="10" y="416.3">COMMON</tspan></text>
+<text id="COMMON" fill="white" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="16" letter-spacing="0em"><tspan x="10" y="414.3">COMMON</tspan></text>
 </g>
 <g id="Rarity=Rare_4">
-<text id="RARE" fill="#19B7F5" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="16" letter-spacing="0em"><tspan x="10" y="416.3">RARE</tspan></text>
+<text id="RARE" fill="#19B7F5" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="16" letter-spacing="0em"><tspan x="10" y="414.3">RARE</tspan></text>
 </g>
 <g id="Rarity=Epic_4">
-<text id="EPIC" fill="#DB81EB" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="16" letter-spacing="0em"><tspan x="10" y="416.3">EPIC</tspan></text>
+<text id="EPIC" fill="#DB81EB" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="16" letter-spacing="0em"><tspan x="10" y="414.3">EPIC</tspan></text>
 </g>
 <g id="Rarity=Legendary_4">
-<text id="LEGENDARY" fill="#BD9836" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="16" letter-spacing="0em"><tspan x="10" y="416.3">LEGENDARY</tspan></text>
+<text id="LEGENDARY" fill="#BD9836" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="16" letter-spacing="0em"><tspan x="10" y="414.3">LEGENDARY</tspan></text>
 </g>
 <g id="Rarity=Unique_3">
-<text id="UNIQUE" fill="#64A128" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="16" letter-spacing="0em"><tspan x="10" y="416.3">UNIQUE</tspan></text>
+<text id="UNIQUE" fill="#64A128" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="16" letter-spacing="0em"><tspan x="10" y="414.3">UNIQUE</tspan></text>
 </g>
 <g id="Rarity=Neutral_3">
-<text id="`" fill="white" fill-opacity="0.01" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="16" letter-spacing="0em"><tspan x="10" y="416.3">`</tspan></text>
+<text id="`" fill="white" fill-opacity="0.01" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="16" letter-spacing="0em"><tspan x="10" y="414.3">`</tspan></text>
 </g>
 </g>
 </g>

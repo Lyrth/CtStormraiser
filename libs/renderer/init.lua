@@ -1,10 +1,11 @@
 
 
-local fs = require 'fs'
+local fs = require 'coro-fs'
 local path = require 'path'
-local vips = require 'vips'
+local timer = require 'timer'
 local base64 = require 'base64'
 
+local vips = require 'vips'
 local pesc = require 'util'.patternEscape
 local slaxml = require 'slaxdom'
 
@@ -20,6 +21,8 @@ local DEBUG = true
 
 
 --=============================================--
+
+-- TODO put all render files into temp folder
 
 
 local Renderer = {}
@@ -38,20 +41,28 @@ end
 function Renderer.render(layout, vars, outFile)
     Renderer.setup()
 
-    local svg = assert(fs.readFileSync(path.join(LAYOUT_DIR, layout..'.svg')))
+    local svg = assert(fs.readFile(path.join(LAYOUT_DIR, layout..'.svg')))
     local dom = slaxml:dom(svg, { stripWhitespace = true })
-    vars._rootSettings = {workdir = TEMP_DIR..(os.clock()*1000)}
-    fs.mkdirpSync(vars._rootSettings.workdir)
+    local tmpdir = TEMP_DIR..(os.clock()*1000)
+    fs.mkdirp(tmpdir)
 
+    vars._rootSettings = {workdir = tmpdir}
     Renderer._parse(dom, vars)
     svg = slaxml:xml(dom)
 
     local fn = path.join(LAYOUT_DIR, path.basename(outFile)..'.svg')
-    fs.writeFileSync(fn, svg)
+    fs.writeFile(fn, svg)
     vips.Image.new_from_file(fn):write_to_file(outFile)
-    fs.unlinkSync(fn)
+
+    -- make sure vips closes all file handles it still has
     collectgarbage()
     collectgarbage()
+
+    while not fs.rmrf(tmpdir) do
+        if DEBUG then print('waiting for resource: '..tmpdir) end
+        timer.sleep(1000)
+    end
+    fs.unlink(fn)
 end
 
 function Renderer.imageText(name, value)
@@ -184,7 +195,7 @@ function ops.REP(args, node, varstb)
         error("Misconfigured REP: missing _CONFIGVAR_ or _VARSTABLEVAR_")
     end
 
-    local _svg = assert(fs.readFileSync(path.join(LAYOUT_DIR, filename)))
+    local _svg = assert(fs.readFile(path.join(LAYOUT_DIR, filename)))
     local _dom = slaxml:dom(_svg, { stripWhitespace = true })
 
     local n = #varsArray

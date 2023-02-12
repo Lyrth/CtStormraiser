@@ -1,7 +1,7 @@
 
 -- intermediate thingy for REI operations
 
-local fs = require 'fs'
+local fs = require 'coro-fs'
 local path = require 'path'
 
 local sha2 = require 'sha2'
@@ -34,7 +34,7 @@ end
 
 function SvgTextGen:generate(outPath, maxWidth, maxHeight)
     if not svgCache[self.name] then
-        local str = assert(fs.readFileSync(path.join(LAYOUT_DIR, 'Text'..self.name..'.svg')))
+        local str = assert(fs.readFile(path.join(LAYOUT_DIR, 'Text'..self.name..'.svg')))
         local svg = slaxml:dom(str, { stripWhitespace = true })
         local txt = slaxml:find(svg, { name = 'text' }) or error("No text node in svg file "..self.name..".svg")
         local att = txt.attr

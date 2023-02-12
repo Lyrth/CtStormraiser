@@ -17,7 +17,7 @@ local cmd = {
 
 
 local discordia = require 'discordia'
-local fs = require 'fs'
+local fs = require 'coro-fs'
 local timer = require 'timer'
 
 local util = require 'util'
@@ -92,7 +92,7 @@ function cmd.handle(intr)
         do
             local files = {}
             for i = 1, numFiles do
-                files[#files+1] = {('CtBot_Shop%02d_%s.png'):format(i, os.date('!%Y-%m-%d')), fs.readFileSync('storage/Shop'..i..'.png')}
+                files[#files+1] = {('CtBot_Shop%02d_%s.png'):format(i, os.date('!%Y-%m-%d')), fs.readFile('storage/Shop'..i..'.png')}
                 if #files >= 8 and #files < numFiles then
                     intr.channel:send {files = files}
                     files = {}
@@ -191,10 +191,10 @@ function cmd.handle(intr)
     render(sectionsSorted)
     local timeout = false
     timer.setTimeout(60000, function() timeout = true end)
-    while not timeout and not fs.existsSync('storage/shop.done') do
+    while not timeout and not fs.access('storage/shop.done', 'r') do
         timer.sleep(1000)
     end
-    local n, err = assert(fs.readFileSync('storage/shop.done')):match('^([-%d]+)%s*(.*)$')
+    local n, err = assert(fs.readFile('storage/shop.done')):match('^([-%d]+)%s*(.*)$')
     if tonumber(n) < 0 then error(err) end
 
     lastHash = hash
@@ -207,7 +207,7 @@ function cmd.handle(intr)
         local files = {}
         numFiles = tonumber(n)
         for i = 1, numFiles do
-            files[#files+1] = {('CtBot_Shop%02d_%s.png'):format(i, os.date('!%Y-%m-%d')), fs.readFileSync('storage/Shop'..i..'.png')}
+            files[#files+1] = {('CtBot_Shop%02d_%s.png'):format(i, os.date('!%Y-%m-%d')), fs.readFile('storage/Shop'..i..'.png')}
             if #files >= 8 and #files < numFiles then
                 intr.channel:send {files = files}
                 files = {}

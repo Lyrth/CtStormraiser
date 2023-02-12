@@ -7,7 +7,7 @@
 -- Author: Lyrthras
 --=============================================]]--
 
-local fs = require 'fs'
+local fs = require 'coro-fs'
 
 ---@type discordia
 local discordia = require 'discordia'
@@ -64,5 +64,5 @@ end)
 --=============================================--
 -- Run the bot
 
-local token = assert(fs.readFileSync('_token.txt'), "Missing token, place bot token into _token.txt")
+local token = assert(fs.readFile('_token.txt'), "Missing token, place bot token into _token.txt")
 client:run(('Bot %s'):format(token:gsub('%s+$', '')))

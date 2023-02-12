@@ -4,7 +4,7 @@ local base64 = require 'base64'
 local timer = require 'timer'
 local json = require 'json'
 local path = require 'path'
-local fs = require 'fs'
+local fs = require 'coro-fs'
 
 local util = require 'util'
 
@@ -33,19 +33,19 @@ local openFiles = {}
 
 local function openFile(f, readOnly)
     f = path.resolve(f)
-    if fs.existsSync(f) then
-        if assert(fs.statSync(f)).type == 'file' then
-            if not fs.accessSync(f, readOnly and 'R' or 'RW') then
+    if fs.access(f) then
+        if assert(fs.stat(f)).type == 'file' then
+            if not fs.access(f, readOnly and 'r' or 'rw') then
                 error("'"..f.."': missing permissions.")
             end
-            return assert(fs.openSync(f, readOnly and 'r' or 'r+')), f
+            return assert(fs.open(f, readOnly and 'r' or 'r+')), f
         else
             error("'"..f.."': not a file.")
         end
     else
         if readOnly then error("'"..f.."': does not exist.") end
-        assert(fs.mkdirpSync(path.dirname(f)))
-        return assert(fs.openSync(f, 'wx+')), f
+        assert(fs.mkdirp(path.dirname(f)))
+        return assert(fs.open(f, 'wx+')), f
     end
 end
 
@@ -55,7 +55,7 @@ end
 
 
 local function fetchContent(fd)
-    local j = assert(fs.readSync(fd, nil, 0))     -- always read from start
+    local j = assert(fs.read(fd, nil, 0))     -- always read from start
     return jassert(json.decode(j and #j > 0 and j or '{}'))
 end
 
@@ -63,11 +63,13 @@ local function _jsonWarn(reason, v, s, err)
     print(("Warning: JSON encoding exception: [%s]: %s: %s"):format(tostring(v), reason, err))
     return ''
 end
+
+local ftruncateSync, fsyncSync = require'fs'.ftruncateSync, require'fs'.fsyncSync
 local function writeContent(fd, v, conf)
     local j = json.encode(v or {}, {indent = true, exception = _jsonWarn})
-    fs.ftruncateSync(fd)
-    assert(fs.writeSync(fd, 0, j))
-    fs.fsyncSync(fd)
+    ftruncateSync(fd)
+    assert(fs.write(fd, j, 0))
+    fsyncSync(fd)
 end
 
 
@@ -114,7 +116,7 @@ end
 
 local function queueUpdate(t, conf)
     if conf.wTimer then timer.clearTimeout(conf.wTimer) end
-    conf.wTimer = timer.setTimeout(UPDATE_INTERV, checkUpdate, t, conf)
+    conf.wTimer = timer.setTimeout(UPDATE_INTERV, coroutine.wrap(checkUpdate), t, conf)
 end
 
 local function checkIsDb(t)

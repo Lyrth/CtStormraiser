@@ -96,12 +96,12 @@ local function __thread__(_sectionsSorted) coroutine.wrap(function()
             Renderer.render('MainArea', imVars, 'storage/Shop'..i..'.png')
         end
 
-        require'fs'.writeFileSync('storage/shop.done', tostring(#sectionsSorted))
+        require'coro-fs'.writeFile('storage/shop.done', tostring(#sectionsSorted))
     end
 
     local succ, err = xpcall(fn, debug.traceback)
     if not succ then
-        require'fs'.writeFileSync('storage/shop.done', '-1\t'..err)
+        require'coro-fs'.writeFile('storage/shop.done', '-1\t'..err)
     end
 end)() end
 
@@ -109,12 +109,12 @@ end)() end
 -- must be loaded in main thread first
 require 'vips'
 
-local fs = require 'fs'
+local fs = require 'coro-fs'
 local json = require 'json'
 local thread = require 'thread'
 
 return function(sectionsSorted)
-    fs.unlinkSync('storage/shop.done')
+    fs.unlink('storage/shop.done')
     local _sectionsSorted = json.encode(sectionsSorted)
 
     return thread.start(__thread__, _sectionsSorted)

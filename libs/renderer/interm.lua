@@ -41,7 +41,7 @@ function SvgTextGen:generate(outPath, maxWidth, maxHeight)
         local markup = '<span font_family="%s" font_size="%.6fpt" font_style="%s" font_weight="%s" color="%s" alpha="%d%%" text_transform="%s">'
         local tag = markup:format(
             att['font-family'],
-            tonumber(att['font-size'] or '12')*17/15,
+            tonumber(att['font-size'] or '12'),
             att['font-style'] or 'normal',
             att['font-weight'] or 'normal',
             att['fill'] or 'white',
@@ -52,7 +52,7 @@ function SvgTextGen:generate(outPath, maxWidth, maxHeight)
         svgCache[self.name] = {tag = tag, stroke = att.stroke and {color = {col2Rgb(att.stroke)}, width = tonumber(att['stroke-width']) or 1}}
     end
 
-    local text = vips.Image.text(svgCache[self.name].tag..self.text..'</span>', {rgba = true})
+    local text = vips.Image.text(svgCache[self.name].tag..self.text..'</span>', {rgba = true, dpi = 75})
 
     local fac = math.min(maxWidth and (maxWidth/text:width()) or 1, maxHeight and (maxHeight/text:height()) or 1)
     if fac < 0.9999 then

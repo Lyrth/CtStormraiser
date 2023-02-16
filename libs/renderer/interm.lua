@@ -12,6 +12,32 @@ local slaxml = require 'slaxdom'
 local LAYOUT_DIR = 'layouts'
 
 
+
+local FromImageFile = {}
+FromImageFile._processable = true
+FromImageFile.__index = FromImageFile
+
+function FromImageFile.new(fromPath)
+    if not fs.access(fromPath, 'r') then error('cannot access file '..fromPath) end
+    return setmetatable({path = fromPath}, FromImageFile)
+end
+
+function FromImageFile:getUniqueName()
+    return path.basename(self.path, path.extname(self.path))..'new'
+end
+
+function FromImageFile:generate(outPath, maxWidth, maxHeight)
+    local im = vips.Image.new_from_file(self.path)
+
+    local fac = math.min(maxWidth and (maxWidth/im:width()) or 1, maxHeight and (maxHeight/im:height()) or 1, 1)
+    if fac < 0.9999 then im = im:resize(fac) end
+
+    im:write_to_file(outPath)
+    return im
+end
+
+
+
 local SvgTextGen = {}
 SvgTextGen._processable = true
 SvgTextGen.__index = SvgTextGen
@@ -54,7 +80,7 @@ function SvgTextGen:generate(outPath, maxWidth, maxHeight)
 
     local text = vips.Image.text(svgCache[self.name].tag..self.text..'</span>', {rgba = true, dpi = 75})
 
-    local fac = math.min(maxWidth and (maxWidth/text:width()) or 1, maxHeight and (maxHeight/text:height()) or 1)
+    local fac = math.min(maxWidth and (maxWidth/text:width()) or 1, maxHeight and (maxHeight/text:height()) or 1, 1)
     if fac < 0.9999 then
         text = text:resize(fac)
         -- note: the border wasn't counted lol
@@ -85,5 +111,6 @@ end
 
 
 return {
-    SvgTextGen = SvgTextGen
+    SvgTextGen = SvgTextGen,
+    FromImageFile = FromImageFile,
 }

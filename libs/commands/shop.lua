@@ -112,10 +112,10 @@ function cmd.handle(intr)
     for _,v in ipairs(shop) do
         if sectionNames[v.Section] then
             if not v.Name then v.Name = sectionNames[v.Section] end
+            if v.Slot == 256 or v.Slot == 272 then v.Slot = 0 v.Square = true end
             if v.Section:sub(1,2) == 'EX' then
                 v.Name = 'Weekly - \1'..v.Name
             end
-            if v.Slot == 256 or v.Slot == 272 then v.Slot = 1 v.Square = true end
             if not sections[v.Name] then sections[v.Name] = {} end
             local slot = sections[v.Name][v.Slot+1]
             if not slot then

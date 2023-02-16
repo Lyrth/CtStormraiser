@@ -38,15 +38,15 @@ function Renderer.setup()
 end
 
 -- layout: e.g. 'MainArea'
-function Renderer.render(layout, vars, outFile)
+function Renderer.render(layout, vars, outFile, tmpdir)
     Renderer.setup()
 
     local svg = assert(fs.readFile(path.join(LAYOUT_DIR, layout..'.svg')))
     local dom = slaxml:dom(svg, { stripWhitespace = true })
-    local tmpdir = TEMP_DIR..(os.clock()*1000)
+    tmpdir = tmpdir or (TEMP_DIR..(os.clock()*1000))
     fs.mkdirp(tmpdir)
 
-    vars._rootSettings = {workdir = tmpdir}
+    vars._rootSettings = { workdir = tmpdir }
     Renderer._parse(dom, vars)
     svg = slaxml:xml(dom)
 
@@ -71,8 +71,10 @@ function Renderer.imageText(name, value)
     return interm.SvgTextGen.new(name, value)
 end
 
-function Renderer.imageBinary(str)
-    return vips.Image.new_from_buffer(str)      -- TODO AS PATH INSTEAD
+function Renderer.imageFromPath(imgPath)
+    Renderer.setup()
+
+    return interm.FromImageFile.new(imgPath)
 end
 
 function Renderer._preloadFonts()

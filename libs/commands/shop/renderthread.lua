@@ -4,6 +4,7 @@ local function __thread__(_sectionsSorted) coroutine.wrap(function()
     local fn = function()
         local json = require 'json'
 
+        local fs = require 'coro-fs'
         local util = require 'util'
         local logins = require 'ctlogins'
         local Renderer = require 'renderer'
@@ -53,6 +54,8 @@ local function __thread__(_sectionsSorted) coroutine.wrap(function()
                 Items = {}
             }
 
+            local tmpdir = 'layouts/tmp/'..(os.clock()*1000)
+            fs.mkdirp(tmpdir)
 
             for _, item in ipairs(items) do
                 local pkg = ct:getPackageInfo(item.id)
@@ -65,8 +68,11 @@ local function __thread__(_sectionsSorted) coroutine.wrap(function()
 
                 local contType = item.square and 'Square' or 'Vert'
                 local thumbName = pkg.texPaths.ShopMenuIcon and pkg.texPaths.ShopMenuIcon:match('[^.]+$') or (contType .. 'Placeholder')
+                thumbName = thumbName .. '.png'
+                fs.writeFile(tmpdir..'/'..thumbName, ct:getThumbnail(thumbName))
+
                 local vars = {
-                    ThumbImage = Renderer.imageBinary(ct:getThumbnail(thumbName .. '.png')),
+                    ThumbImage = Renderer.imageFromPath(tmpdir..'/'..thumbName),
                     ItemTitle = Renderer.imageText('ItemTitle', util.locresFmt(name:upper())),
                     ItemDescShort = Renderer.imageText('ItemDescShort', util.locresFmt(desc)),
                     -- ItemDescLong = Renderer.imageLongDesc(util.locresFmt(table.concat(longDesc, '\n\n'))),
@@ -93,10 +99,12 @@ local function __thread__(_sectionsSorted) coroutine.wrap(function()
                 ::continue::
             end
 
-            Renderer.render('MainArea', imVars, 'storage/Shop'..i..'.png')
+            Renderer.render('MainArea', imVars, 'storage/Shop'..i..'.png', tmpdir)
         end
 
-        require'coro-fs'.writeFile('storage/shop.done', tostring(#sectionsSorted))
+        fs.writeFile('storage/shop.done', tostring(#sectionsSorted))
+        collectgarbage()
+        collectgarbage()
     end
 
     local succ, err = xpcall(fn, debug.traceback)

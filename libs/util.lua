@@ -16,11 +16,14 @@ local function jsonAssert(v,p,m)
     return (m and error(("JSON error: %d: %s"):format(p, m))) or v
 end
 
+local function getTzOffset()
+    return os.time() - os.time(os.date("!*t"))
+end
+
 local function parseServerDate(str)
     local year,month,day,hour,min,sec,ms = str:match '^(%d+)%-(%d+)%-(%d+)T(%d+):(%d+):(%d+)%.(%d+)Z'
-    local dtz = (os.time()-os.time(os.date("!*t")))
 
-    return dtz + os.time {
+    return getTzOffset() + os.time {
         sec = sec,
         min = min,
         isdst = false,
@@ -143,6 +146,7 @@ end
 
 return {
     sendErrorToOwner = sendErrorToOwner,
+    getTzOffset = getTzOffset,
     parseServerDate = parseServerDate,
     jsonAssert = jsonAssert,
     patternEscape = patternEscape,

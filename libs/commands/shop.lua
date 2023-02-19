@@ -126,7 +126,8 @@ function cmd.handle(intr)
                 id = v.ID,
                 date = v.Date,
                 RM = v.RM or 0, SC = v.SC or 0, HC = v.HC or 0,
-                square = v.Square
+                square = v.Square,
+                forceDaily = v.Name:find('DailySectionTitle')
             }
         end
     end
@@ -155,7 +156,14 @@ function cmd.handle(intr)
             local commonDate = -1
             do
                 local dates = {}
-                for i, item in ipairs(set) do dates[i] = item.date end
+                for i, item in ipairs(set) do
+                    if item.forceDaily then
+                        local today = os.date('!*t', lastUpdate > 0 and lastEmbed or os.time())
+                        -- Hmm. March 31 + 1 = March 32? This is fine.
+                        item.date = os.time {day = today.day + 1, month = today.month, year = today.year, hour = 0} + util.getTzOffset()
+                    end
+                    dates[i] = item.date
+                end
                 commonDate = smode(dates)
             end
             field.value = field.value .. ("Set %d %s:\n"):format(setId, formatDate(commonDate))

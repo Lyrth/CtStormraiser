@@ -9,7 +9,7 @@ local vips = require 'vips'
 local pesc = require 'util'.patternEscape
 local slaxml = require 'slaxdom'
 
-local interm = require 'renderer/interm'
+local defer = require 'renderer/defer'
 
 
 --=============================================--
@@ -17,7 +17,7 @@ local interm = require 'renderer/interm'
 
 local LAYOUT_DIR = 'layouts'
 local TEMP_DIR = path.join(LAYOUT_DIR, '_tmp')
-local DEBUG = true
+local DEBUG = false
 
 
 --=============================================--
@@ -41,40 +41,46 @@ end
 function Renderer.render(layout, vars, outFile, tmpdir)
     Renderer.setup()
 
-    local svg = assert(fs.readFile(path.join(LAYOUT_DIR, layout..'.svg')))
-    local dom = slaxml:dom(svg, { stripWhitespace = true })
     tmpdir = tmpdir or (TEMP_DIR..(os.clock()*1000))
     fs.mkdirp(tmpdir)
-
-    vars._rootSettings = { workdir = tmpdir }
-    Renderer._parse(dom, vars)
-    svg = slaxml:xml(dom)
-
     local fn = path.join(LAYOUT_DIR, path.basename(outFile)..'.svg')
-    fs.writeFile(fn, svg)
-    vips.Image.new_from_file(fn):write_to_file(outFile)
+
+    local ok, err = xpcall(function()
+        local svg = assert(fs.readFile(path.join(LAYOUT_DIR, layout..'.svg')))
+        local dom = slaxml:dom(svg, { stripWhitespace = true })
+
+        vars._rootSettings = { workdir = tmpdir }
+        Renderer._parse(dom, vars)
+        svg = slaxml:xml(dom)
+
+        -- svg needs to be a file to have paths be properly referenced
+        fs.writeFile(fn, svg)
+        vips.Image.new_from_file(fn):write_to_file(outFile)
+    end, debug.traceback)
 
     -- make sure vips closes all file handles it still has
     collectgarbage()
     collectgarbage()
 
-    while not fs.rmrf(tmpdir) do
+    while not fs.rmrf(tmpdir) and fs.access(tmpdir) do
         if DEBUG then print('waiting for resource: '..tmpdir) end
         timer.sleep(1000)
     end
     fs.unlink(fn)
+
+    if not ok then error(err) end
 end
 
 function Renderer.imageText(name, value)
     Renderer.setup()
 
-    return interm.SvgTextGen.new(name, value)
+    return defer.SvgTextGen.new(name, value)
 end
 
 function Renderer.imageFromPath(imgPath)
     Renderer.setup()
 
-    return interm.FromImageFile.new(imgPath)
+    return defer.FromImageFile.new(imgPath)
 end
 
 function Renderer._preloadFonts()

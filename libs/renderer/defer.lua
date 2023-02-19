@@ -1,5 +1,5 @@
 
--- intermediate thingy for REI operations
+-- intermediate thingy for REI operations to defer processing
 
 local fs = require 'coro-fs'
 local path = require 'path'

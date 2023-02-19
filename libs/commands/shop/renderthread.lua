@@ -69,13 +69,12 @@ local function __thread__(_sectionsSorted) coroutine.wrap(function()
                 local contType = item.square and 'Square' or 'Vert'
                 local thumbName = pkg.texPaths.ShopMenuIcon and pkg.texPaths.ShopMenuIcon:match('[^.]+$') or (contType .. 'Placeholder')
                 thumbName = thumbName .. '.png'
-                fs.writeFile(tmpdir..'/'..thumbName, ct:getThumbnail(thumbName))
+                fs.writeFile(tmpdir..'/'..thumbName, ct:getThumbnail(thumbName) or ct:getThumbnail(contType .. 'Placeholder.png'))
 
                 local vars = {
                     ThumbImage = Renderer.imageFromPath(tmpdir..'/'..thumbName),
                     ItemTitle = Renderer.imageText('ItemTitle', util.locresFmt(name:upper())),
                     ItemDescShort = Renderer.imageText('ItemDescShort', util.locresFmt(desc)),
-                    -- ItemDescLong = Renderer.imageLongDesc(util.locresFmt(table.concat(longDesc, '\n\n'))),
                     ContainerType = contType,
                     Rarity = pkg.rarity,
                 }

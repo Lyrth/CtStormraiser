@@ -65,7 +65,7 @@ local function _jsonWarn(reason, v, s, err)
 end
 
 local ftruncateSync, fsyncSync = require'fs'.ftruncateSync, require'fs'.fsyncSync
-local function writeContent(fd, v, conf)
+local function writeContent(fd, v)
     local j = json.encode(v or {}, {indent = true, exception = _jsonWarn})
     ftruncateSync(fd)
     assert(fs.write(fd, j, 0))
@@ -91,7 +91,7 @@ local function checkUpdate(t, conf)
     end
 
     contHash = util.tbHash(v)
-    if contHash == conf.hash then goto ok end
+    if conf.readOnly and contHash == conf.hash then goto ok end
 
     if conf.readOnly then
         t = t:from(v, true)

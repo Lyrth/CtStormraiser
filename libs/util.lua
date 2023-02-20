@@ -9,21 +9,23 @@
 
 local sha2 = require 'sha2'
 
+local util = {}
+
 ---@generic T any
 ---@param v T|nil
 ---@return T
-local function jsonAssert(v,p,m)
+function util.jsonAssert(v,p,m)
     return (m and error(("JSON error: %d: %s"):format(p, m))) or v
 end
 
-local function getTzOffset()
+function util.getTzOffset()
     return os.time() - os.time(os.date("!*t"))
 end
 
-local function parseServerDate(str)
+function util.parseServerDate(str)
     local year,month,day,hour,min,sec,ms = str:match '^(%d+)%-(%d+)%-(%d+)T(%d+):(%d+):(%d+)%.(%d+)Z'
 
-    return getTzOffset() + os.time {
+    return util.getTzOffset() + os.time {
         sec = sec,
         min = min,
         isdst = false,
@@ -34,18 +36,18 @@ local function parseServerDate(str)
     }
 end
 
-local function locresFmt(text)
+function util.locresFmt(text)
     return text
         :gsub('<img id="RichText%.BulletPoint"/>', ' ‣ ')
         :gsub('<b>([^<]*)</>', '<b>%1</b>')
 end
 
 ---@param client Client
-local function sendErrorToOwner(client, err)
+function util.sendErrorToOwner(client, err)
     client:getUser('368727799189733376'):send(("An error has occured! ```\n%s\n```"):format(err:sub(1900)))
 end
 
-local function patternEscape(str)
+function util.patternEscape(str)
     return (str:gsub("([^%w])", "%%%1"))
 end
 
@@ -56,7 +58,7 @@ local next, type, tostring, tsort = next, type, tostring, table.sort
 local b3, h2b = sha2.blake3, sha2.hex2bin
 
 --- NOTE: Returns a binary string; will discard non-string/number/boolean keys, discard non-string/number/boolean/table and cyclic reference values
-local function tbHash(tb,_,seen)
+function util.tbHash(tb,_,seen)
     seen = seen or {}
     local x = {}
     for k, v in next, tb, nil do
@@ -70,7 +72,7 @@ local function tbHash(tb,_,seen)
             v = tostring(v)
         elseif tv == 'table' and not seen[v] then
             seen[v] = true
-            v = tbHash(v, nil, seen)
+            v = util.tbHash(v, nil, seen)
         elseif tv ~= 'string' then
             goto continue
         end
@@ -84,8 +86,7 @@ local function tbHash(tb,_,seen)
     end
     return h2b(hash())
 end
-
-local function cleanTable(tb,_,seen)
+function util.cleanTable(tb,_,seen)
     seen = seen or {}
     for k, v in next, tb, nil do
         local tk, tv = type(k), type(v)
@@ -100,7 +101,7 @@ local function cleanTable(tb,_,seen)
             tb[k] = tostring(v)
         elseif tv == 'table' and not seen[v] then
             seen[v] = true
-            v = cleanTable(v, nil, seen)
+            v = util.cleanTable(v, nil, seen)
         elseif tv ~= 'string' then
             tb[k] = nil
         end
@@ -115,7 +116,7 @@ end
 ---@generic T table|any
 ---@param orig T
 ---@return T
-local function tcopym(orig, _, _copies)
+function util.tcopym(orig, _, _copies)
     _copies = _copies or {}
     if type(orig) == 'table' then
         if _copies[orig] then
@@ -133,7 +134,7 @@ local function tcopym(orig, _, _copies)
                     elseif (
                         type(orig_value) == 'table' or
                         type(orig_value) == 'cdata') then
-                        t[orig_key] = tcopym(orig_value, _, _copies)
+                        t[orig_key] = util.tcopym(orig_value, _, _copies)
                     end
                 end
             end
@@ -144,14 +145,14 @@ local function tcopym(orig, _, _copies)
     end
 end
 
-return {
-    sendErrorToOwner = sendErrorToOwner,
-    getTzOffset = getTzOffset,
-    parseServerDate = parseServerDate,
-    jsonAssert = jsonAssert,
-    patternEscape = patternEscape,
-    tbHash = tbHash,
-    cleanTable = cleanTable,
-    locresFmt = locresFmt,
-    tcopym = tcopym,
-}
+function util.contains(t, v)
+    for i = 1, #t do
+        if t[i] == v then return true end
+    end
+    return false
+end
+
+util.b64decode = sha2.base642bin
+util.b64encode = sha2.bin2base64
+
+return util

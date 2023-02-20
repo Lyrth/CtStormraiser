@@ -68,6 +68,9 @@ local sectionNames = {
 -- 2 - Discount
 -- 4 - NEW
 
+local DB = require 'storage/db'
+local config = DB:open 'config/shop'
+
 local lastUpdate = 0
 local lastHash = ''
 local lastEmbed = nil
@@ -108,6 +111,18 @@ function cmd.handle(intr)
 
     intr:editReply("Processing...")
 
+    local empty = config:get {'lastUpdate'} == nil
+    local storedItems
+    local storedHash = util.b64decode(config:get {'lastUpdate', 'hash', default = ''})
+    if storedHash == hash then
+        lastUpdate = tonumber(config:get {'lastUpdate', 'time', default = os.time()})
+    else
+        lastUpdate = os.time()
+        storedItems = config:get {'lastUpdate', 'items', default = empty and {} or nil}
+        config:set {'lastUpdate', 'time', value = lastUpdate}
+    end
+
+    local newStoredItems = {}
     local sections = {}
     for _,v in ipairs(shop) do
         if sectionNames[v.Section] then
@@ -122,14 +137,19 @@ function cmd.handle(intr)
                 slot = {}
                 sections[v.Name][v.Slot+1] = slot
             end
+            newStoredItems[#newStoredItems+1] = v.ID
             slot[#slot+1] = {
                 id = v.ID,
                 date = v.Date,
                 RM = v.RM or 0, SC = v.SC or 0, HC = v.HC or 0,
                 square = v.Square,
-                forceDaily = v.Name:find('DailySectionTitle')
+                forceDaily = v.Name:find('DailySectionTitle') ~= nil,
+                isNew = storedItems and not util.contains(storedItems, v.ID)
             }
         end
+    end
+    if storedItems then
+        config:set {'lastUpdate', 'items', value = newStoredItems}
     end
 
     local sectionsSorted = {}
@@ -171,10 +191,11 @@ function cmd.handle(intr)
             for _, item in ipairs(set) do
                 local name = ct:getLocalization('PACKAGE', item.id..'_NAME') or '???'
                 local desc = ct:getLocalization('PACKAGE', item.id..'_DESC') or ''
-                field.value = field.value .. (" • _%s_%s%s\n"):format(
+                field.value = field.value .. (" • _%s_%s%s%s\n"):format(
                     name,
                     #desc == 0 and '' or (' - %s'):format(desc),
-                    item.date == commonDate and '' or (' - %s'):format(formatDate(commonDate))
+                    item.date == commonDate and '' or (' - %s'):format(formatDate(commonDate)),
+                    item.isNew and ' \\*' or ''
                 )
             end
 
@@ -182,8 +203,6 @@ function cmd.handle(intr)
         end
     end
 
-
-    lastUpdate = os.time()
     local embed = {
         content = 'Generating item displays...',
         embeds = {{
@@ -206,6 +225,7 @@ function cmd.handle(intr)
     if tonumber(n) < 0 then error(err) end
 
     lastHash = hash
+    config:set {'lastUpdate', 'hash', value = util.b64encode(lastHash)}
 
     embed.content = ''
     lastEmbed = embed

@@ -148,7 +148,7 @@ function cmd.handle(intr)
             }
         end
     end
-    if storedItems then
+    if storedHash ~= hash and storedItems then
         config:set {'lastUpdate', 'items', value = newStoredItems}
     end
 

@@ -24,6 +24,29 @@ local util = require 'util'
 local logins = require 'ctlogins'
 local render = require 'commands/shop/renderthread'
 
+local DB = require 'storage/db'
+local config = DB:open 'config/shop'
+local ct = logins.getMain()
+
+
+local sectionNames = {
+    LV1 = 'Other',
+    LV2 = 'Other',
+    EVT = 'EventSectionTitle',
+    DAY = 'DailySectionTitle',
+    FTD = 'FeaturedSectionTitle',
+    EX1 = 'Weekly - Other',
+    EX2 = 'Weekly - Other',
+    EX3 = 'Weekly - Other',
+}
+
+-- TODO Stickers
+-- 1 - BEST VALUE
+-- 2 - Discount
+-- 4 - NEW
+
+
+
 local function smode(t)
     local counts = {}
 
@@ -50,84 +73,33 @@ local function formatDate(timestamp)
     return ("ends <t:%d:R>"):format(timestamp)
 end
 
-
-local sectionNames = {
-    LV1 = 'Other',
-    LV2 = 'Other',
-    EVT = 'EventSectionTitle',
-    DAY = 'DailySectionTitle',
-    FTD = 'FeaturedSectionTitle',
-    EX1 = 'Weekly - Other',
-    EX2 = 'Weekly - Other',
-    EX3 = 'Weekly - Other',
-}
-
-
--- TODO Stickers
--- 1 - BEST VALUE
--- 2 - Discount
--- 4 - NEW
-
-local DB = require 'storage/db'
-local config = DB:open 'config/shop'
-
-local lastUpdate = 0
-local lastHash = ''
-local lastEmbed = nil
-local numFiles = 0
-
-function cmd.handle(intr)
-    if intr.user.id ~= '368727799189733376' then intr:reply('No lol', true) return end
-
-    intr:reply("Fetching shop...")
-    intr._message = intr:getReply()
-
-    local ct = logins.getMain()
-
-    local shop = assert(ct:getShop())
-    local hash = util.tbHash(shop)
-
-    if hash == lastHash and lastEmbed then
-        lastEmbed.embeds[1].description = ("Century shop contents as of <t:%d:F>\nLast checked: <t:%d:R>\n_ _"):format(lastUpdate, os.time())
-
-        intr:editReply(lastEmbed)
-
-        do
-            local files = {}
-            for i = 1, numFiles do
-                files[#files+1] = {('CtBot_Shop%02d_%s.png'):format(i, os.date('!%Y-%m-%d')), fs.readFile('storage/Shop'..i..'.png')}
-                if #files >= 8 and #files < numFiles then
-                    intr.channel:send {files = files}
-                    files = {}
-                end
-            end
-            intr.channel:send {files = files}
-        end
-
-        collectgarbage()
-        collectgarbage()
-        return
-    end
-
-    intr:editReply("Processing...")
-
+local function updateLastState(lastState, hash)
     local empty = config:get {'lastUpdate'} == nil
-    local storedItems
+    local storedItems, needUpdate
     local storedHash = util.b64decode(config:get {'lastUpdate', 'hash', default = ''})
     if storedHash == hash then
-        lastUpdate = tonumber(config:get {'lastUpdate', 'time', default = os.time()})
+        lastState.time = tonumber(config:get {'lastUpdate', 'time', default = os.time()})
+        lastState.currentNew = config:get {'lastUpdate', 'currentNew', default = {}}
     else
-        lastUpdate = os.time()
+        lastState.time = os.time()
+        config:set {'lastUpdate', 'time', value = lastState.time}
         storedItems = config:get {'lastUpdate', 'items', default = empty and {} or nil}
-        config:set {'lastUpdate', 'time', value = lastUpdate}
+        needUpdate = true
     end
 
-    local newStoredItems = {}
+    return storedItems, storedItems and needUpdate or false
+end
+
+local function parseShop(shop, previousItems, currentNew)
+    local newItems = {}
     local sections = {}
     for _,v in ipairs(shop) do
         if sectionNames[v.Section] then
             if not v.Name then v.Name = sectionNames[v.Section] end
-            if v.Slot == 256 or v.Slot == 272 then v.Slot = 0 v.Square = true end
+            if v.Slot == 256 or v.Slot == 272 then
+                v.Slot = 0
+                v.Square = true
+            end
             if v.Section:sub(1,2) == 'EX' then
                 v.Name = 'Weekly - \1'..v.Name
             end
@@ -137,29 +109,30 @@ function cmd.handle(intr)
                 slot = {}
                 sections[v.Name][v.Slot+1] = slot
             end
-            newStoredItems[#newStoredItems+1] = v.ID
+            newItems[#newItems+1] = v.ID
             slot[#slot+1] = {
                 id = v.ID,
                 date = v.Date,
                 RM = v.RM or 0, SC = v.SC or 0, HC = v.HC or 0,
                 square = v.Square,
                 forceDaily = v.Name:find('DailySectionTitle') ~= nil,
-                isNew = storedItems and not util.contains(storedItems, v.ID)
+                isNew = util.contains(currentNew, v.ID) or (previousItems and not util.contains(previousItems, v.ID))
             }
         end
     end
-    if storedHash ~= hash and storedItems then
-        config:set {'lastUpdate', 'items', value = newStoredItems}
-    end
 
-    local sectionsSorted = {}
+    local sorted = {}
     for sectionNameId, sets in pairs(sections) do
-        sectionsSorted[#sectionsSorted+1] = {sectionNameId, sets}
+        sorted[#sorted+1] = {sectionNameId, sets}
     end
-    table.sort(sectionsSorted, function(a,b) return a[1] < b[1] end)
+    table.sort(sorted, function(a,b) return a[1] < b[1] end)
 
+    return sorted, newItems
+end
+
+local function makeFields(lastState, sections)
     local fields = {}
-    for _,v in ipairs(sectionsSorted) do
+    for _,v in ipairs(sections) do
         local sectionNameId, sets = v[1], v[2]
         fields[#fields+1] = {}
         local field = fields[#fields]
@@ -178,7 +151,7 @@ function cmd.handle(intr)
                 local dates = {}
                 for i, item in ipairs(set) do
                     if item.forceDaily then
-                        local today = os.date('!*t', lastUpdate > 0 and lastEmbed or os.time())
+                        local today = os.date('!*t', lastState.time > 0 and lastState.time or os.time())
                         -- Hmm. March 31 + 1 = March 32? This is fine.
                         item.date = os.time {day = today.day + 1, month = today.month, year = today.year, hour = 0} + util.getTzOffset()
                     end
@@ -195,7 +168,7 @@ function cmd.handle(intr)
                     name,
                     #desc == 0 and '' or (' - %s'):format(desc),
                     item.date == commonDate and '' or (' - %s'):format(formatDate(commonDate)),
-                    item.isNew and ' \\*' or ''
+                    item.isNew and ' *[NEW]*' or ''
                 )
             end
 
@@ -203,19 +176,13 @@ function cmd.handle(intr)
         end
     end
 
-    local embed = {
-        content = 'Generating item displays...',
-        embeds = {{
-            title = "Century Shop",
-            description = ("Century shop contents as of <t:%d:F>\nLast checked: <t:%d:R>\n_ _"):format(lastUpdate, os.time()),
-            fields = fields,
-            --footer = {text = "This is a footer", icon_url = "https://www.google.com/favicon.ico",
-            color = discordia.Color.fromRGB(120, 40, 180).value,
-        }}
-    }
-    intr:editReply(embed)
+    return fields
+end
 
-    render(sectionsSorted)
+local function renderSections(sections)
+    render(sections)
+
+    -- TODO proper communication
     local timeout = false
     timer.setTimeout(60000, function() timeout = true end)
     while not timeout and not fs.access('storage/shop.done', 'r') do
@@ -223,29 +190,97 @@ function cmd.handle(intr)
     end
     local n, err = assert(fs.readFile('storage/shop.done')):match('^([-%d]+)%s*(.*)$')
     if tonumber(n) < 0 then error(err) end
+    return n
+end
 
-    lastHash = hash
-    config:set {'lastUpdate', 'hash', value = util.b64encode(lastHash)}
-
-    embed.content = ''
-    lastEmbed = embed
-    intr:editReply(lastEmbed)
+local function sendShop(msg, lastState)
+    msg:update(lastState.embed)
 
     do
         local files = {}
-        numFiles = tonumber(n)
-        for i = 1, numFiles do
+        for i = 1, lastState.numFiles do
             files[#files+1] = {('CtBot_Shop%02d_%s.png'):format(i, os.date('!%Y-%m-%d')), fs.readFile('storage/Shop'..i..'.png')}
-            if #files >= 8 and #files < numFiles then
-                intr.channel:send {files = files}
+            if #files >= 8 and #files < lastState.numFiles then
+                msg.channel:send {files = files}
                 files = {}
             end
         end
-        intr.channel:send {files = files}
+        msg.channel:send {files = files}
     end
 
     collectgarbage()
     collectgarbage()
+end
+
+
+
+local lastState = {
+    time = 0,
+    hash = '',
+    embed = nil,
+    numFiles = 0,
+    currentNew = {},
+}
+
+local function run(channel, msg)
+    local shop = assert(ct:getShop())
+    local hash = util.tbHash(shop)
+
+    if hash == lastState.hash and lastState.embed then
+        lastState.embed.embed.description = ("Century shop contents as of <t:%d:F>\nLast checked: <t:%d:R>\n_ _"):format(lastState.time, os.time())
+        -- if there's no message, means we're doing automated. Don't do anything on automated
+        if msg then sendShop(msg, lastState) end
+        return
+    end
+
+    ---
+    if msg then
+        msg:setContent("Processing...")
+    else
+        msg = channel:send("Processing...")
+    end
+
+    local oldItems, updateItems = updateLastState(lastState, hash)
+    local sections, newItems = parseShop(shop, oldItems, lastState.currentNew)
+    if updateItems then
+        local currentNew = {}
+        for _,v in ipairs(newItems) do
+            if not util.contains(oldItems, v) then
+                currentNew[#currentNew+1] = v
+            end
+        end
+        config:set {'lastUpdate', 'currentNew', value = currentNew}
+        config:set {'lastUpdate', 'items', value = newItems}
+    end
+
+    local embed = {
+        content = 'Generating item displays...',
+        embed = {
+            title = "Century Shop",
+            description = ("Century shop contents as of <t:%d:F>\nLast checked: <t:%d:R>\n_ _"):format(lastState.time, os.time()),
+            fields = makeFields(lastState, sections),
+            --footer = {text = "This is a footer", icon_url = "https://www.google.com/favicon.ico",
+            color = discordia.Color.fromRGB(120, 40, 180).value,
+        }
+    }
+    msg:update(embed)
+
+    local n = renderSections(sections)
+
+    lastState.hash = hash
+    lastState.embed = embed
+    lastState.embed.content = ''
+    lastState.numFiles = tonumber(n)
+    config:set {'lastUpdate', 'hash', value = util.b64encode(hash)}
+
+    sendShop(msg, lastState)
+end
+
+function cmd.handle(intr)
+    if intr.user.id ~= '368727799189733376' then intr:reply('No lol', true) return end
+    intr:reply("Ok", true)
+
+    run(nil, intr.channel:send("Fetching shop..."))
 end
 
 

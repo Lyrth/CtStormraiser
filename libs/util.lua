@@ -23,7 +23,8 @@ function util.getTzOffset()
 end
 
 function util.parseServerDate(str)
-    local year,month,day,hour,min,sec,ms = str:match '^(%d+)%-(%d+)%-(%d+)T(%d+):(%d+):(%d+)%.(%d+)Z'
+    local year,month,day,hour,min,sec = str:match '^(%d+)%-(%d+)%-(%d+)T(%d+):(%d+):(%d+)'
+    if not str:find('Z$') then print("Warning: non-Z timestamp detected.", str) end
 
     return util.getTzOffset() + os.time {
         sec = sec,

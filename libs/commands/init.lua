@@ -5,7 +5,10 @@
 -- File names for each command
 local commands = {
     'ping',
-    'shop'
+    'shop',
+    'test',
+    'get_playfab_id',
+    'status_channel',
 }
 
 

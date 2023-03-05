@@ -33,6 +33,8 @@ client:on('ready', function()
         return client:error("Slash commands registration error: %s", err)
     end
     client:info("Registered %d/%d global slash commands.", #slashCommands, #sl)
+
+    require 'cron'.setup(client)
 end)
 
 client:on('slashCommand', function(intr)

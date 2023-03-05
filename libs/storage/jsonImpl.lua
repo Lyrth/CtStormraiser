@@ -1,6 +1,5 @@
 -- JSON db impl
 
-local base64 = require 'base64'
 local timer = require 'timer'
 local json = require 'json'
 local path = require 'path'
@@ -126,9 +125,13 @@ end
 
 --=============================================--
 
+local cache = {}
+
 --- NOTE: when dealing with nested tables, use set/get instead of raw indexing
 ---@return JsonDbStore
 function db:open(dbName, readOnly)
+    if cache[dbName] then return cache[dbName] end
+
     -- make file here etc
     local fd, fpath = getFile(self.rootPath, dbName, readOnly)
     local s, v = pcall(fetchContent, fd)
@@ -152,6 +155,7 @@ function db:open(dbName, readOnly)
         queueUpdate(t, conf)
     end
 
+    cache[dbName] = t
     return t
 end
 

@@ -24,8 +24,8 @@
 </g>
 <rect id="ThumbImage{{REI=ThumbImage,CENTER,LIMITW,LIMITH}}" width="256" height="512" fill="black" fill-opacity="0.01"/>
 <g id="NewDecal{{EN=IsNew}}">
-<rect id="NewDecal" y="10" width="72" height="41" fill="url(#pattern6)"/>
-<text id="NEW" fill="white" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="16" letter-spacing="0em"><tspan x="6" y="26.3">NEW</tspan></text>
+<rect id="NewDecalLong 1" y="10" width="114" height="36" fill="url(#pattern6)"/>
+<text id="NEW ROTATION" fill="white" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="12" letter-spacing="0em"><tspan x="5" y="22.6">NEW ROTATION</tspan></text>
 </g>
 <rect id="VertOutline 2" width="256" height="512" fill="url(#pattern7)"/>
 </g>
@@ -52,8 +52,8 @@
 </g>
 <rect id="ThumbImage{{REI=ThumbImage,CENTER,LIMITW,LIMITH}}_2" y="256" width="256" height="256" fill="black" fill-opacity="0.01"/>
 <g id="NewDecal{{EN=IsNew}}_2">
-<rect id="NewDecal_2" y="266" width="72" height="41" fill="url(#pattern14)"/>
-<text id="NEW_2" fill="white" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="16" letter-spacing="0em"><tspan x="6" y="282.3">NEW</tspan></text>
+<rect id="NewDecalLong 1_2" y="266" width="114" height="36" fill="url(#pattern14)"/>
+<text id="NEW ROTATION_2" fill="white" xml:space="preserve" style="white-space: pre" font-family="LT Museum" font-size="12" letter-spacing="0em"><tspan x="5" y="278.6">NEW ROTATION</tspan></text>
 </g>
 <rect id="SquareOutline 2" y="256" width="256" height="256" fill="url(#pattern15)"/>
 </g>
@@ -149,7 +149,7 @@
 <use xlink:href="#image5_35_104" transform="scale(0.00390625 0.00184502)"/>
 </pattern>
 <pattern id="pattern6" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image6_35_104" transform="scale(0.0138889 0.0243902)"/>
+<use xlink:href="#image6_35_104" transform="matrix(0.0077435 0 0 0.0245211 -0.122807 -0.00268199)"/>
 </pattern>
 <pattern id="pattern7" patternContentUnits="objectBoundingBox" width="1" height="1">
 <use xlink:href="#image7_35_104" transform="scale(0.00390625 0.00195312)"/>
@@ -173,7 +173,7 @@
 <use xlink:href="#image13_35_104" transform="scale(0.00390625 0.0037594)"/>
 </pattern>
 <pattern id="pattern14" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image6_35_104" transform="scale(0.0138889 0.0243902)"/>
+<use xlink:href="#image6_35_104" transform="matrix(0.0077435 0 0 0.0245211 -0.122807 -0.00268199)"/>
 </pattern>
 <pattern id="pattern15" patternContentUnits="objectBoundingBox" width="1" height="1">
 <use xlink:href="#image14_35_104" transform="scale(0.00390625)"/>
@@ -262,7 +262,7 @@
 <image id="image3_35_104" data-name="VertBgLegendary.png" width="256" height="542" xlink:href="res/VertBgLegendary.png"/>
 <image id="image4_35_104" data-name="VertBgUnique.png" width="256" height="542" xlink:href="res/VertBgUnique.png"/>
 <image id="image5_35_104" data-name="VertBgNeutral.png" width="256" height="542" xlink:href="res/VertBgNeutral.png"/>
-<image id="image6_35_104" data-name="NewDecal.png" width="72" height="41" xlink:href="res/NewDecal.png"/>
+<image id="image6_35_104" data-name="NewDecalLong.png" width="145" height="41" xlink:href="res/NewDecalLong.png"/>
 <image id="image7_35_104" data-name="VertOutline.png" width="256" height="512" xlink:href="res/VertOutline.png"/>
 <image id="image8_35_104" data-name="SquareBgCommon.png" width="256" height="266" xlink:href="res/SquareBgCommon.png"/>
 <image id="image9_35_104" data-name="SquareBgRare.png" width="256" height="266" xlink:href="res/SquareBgRare.png"/>

@@ -14,6 +14,8 @@ ItemTitle: IMAGE
 ItemDescShort: IMAGE
 ItemDescLong: IMAGE
 
+IsNew: bool
+
 ContainerType
   Vert
   Square

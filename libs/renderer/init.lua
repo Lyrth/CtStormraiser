@@ -127,7 +127,7 @@ end
 local function makeElement(name, attrs)
     local elem = {type = 'element', name = name, kids = {}, el = {}}
     local attr = {}
-    for i,v in ipairs(attrs) do
+    for i,v in ipairs(attrs or {}) do
         attr[i] = {
             type = 'attribute',
             name = v[1],
@@ -197,6 +197,15 @@ function ops.REI(args, node, varstb)
     end
 end
 
+function ops.EN(args, node, varstb)
+    local varName = table.remove(args, 1)
+    if not varstb[varName] then
+        slaxml:replace(node, makeElement('g'))
+    else
+        slaxml:attr(node, nil, 'id', node.attr.id:gsub('{{EN='..varName..'}}', 'parsed'))
+    end
+end
+
 function ops.REP(args, node, varstb)
     local filename, config, varsArray = args[1], varstb[args[2]], varstb[args[3]]
     if not config or not varsArray then
@@ -252,6 +261,7 @@ function ops.REP(args, node, varstb)
                         for _,v in ipairs {'clip-path', 'href', 'fill'} do
                             if n2.attr[v]
                                 and n2.attr[v]:find(pesc(node1.attr.id))
+                                and not n2.attr[v]:find('%.png$')   -- avoid changing filenames
                                 and not n2.attr[v]:find(pesc(node1.attr.id)..'[A-Za-z0-9_-]')
                                 and not n2.attr[v]:find(pesc(node1.attr.id)..'__svg_'..i) then
                                 slaxml:attr(n2, nil, v, n2.attr[v]:gsub(pesc(node1.attr.id), pesc(node1.attr.id)..'__svg_'..i))

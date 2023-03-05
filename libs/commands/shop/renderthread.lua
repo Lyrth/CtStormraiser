@@ -77,6 +77,7 @@ local function __thread__(_sectionsSorted) coroutine.wrap(function()
                     ItemDescShort = Renderer.imageText('ItemDescShort', util.locresFmt(desc)),
                     ContainerType = contType,
                     Rarity = pkg.rarity,
+                    IsNew = item.isNew,
                 }
                 imVars.Items[#imVars.Items+1] = vars
 

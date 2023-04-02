@@ -78,6 +78,7 @@ function SvgTextGen:generate(outPath, maxWidth, maxHeight)
         svgCache[self.name] = {tag = tag, stroke = att.stroke and {color = {col2Rgb(att.stroke)}, width = tonumber(att['stroke-width']) or 1}}
     end
 
+    if self.text:match('^%s*$') then self.text = '-' end
     local text = vips.Image.text(svgCache[self.name].tag..self.text..'</span>', {rgba = true, dpi = 75})
 
     local fac = math.min(maxWidth and (maxWidth/text:width()) or 1, maxHeight and (maxHeight/text:height()) or 1, 1)

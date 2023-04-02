@@ -1,6 +1,6 @@
 return {
     name = "Lyrth/StormraiserBot",
-    version = "1.4.0",
+    version = "1.4.1",
     description = "Stormraiser bot for the official Century: Age of Ashes server.",
     license = "GNU General Public License v3.0",
     author = { name = "Lyrthras", email = "me[at]lyr.pw" },

@@ -45,7 +45,7 @@ end
 
 ---@param client Client
 function util.sendErrorToOwner(client, err)
-    client:getUser('368727799189733376'):send(("An error has occured! ```\n%s\n```"):format(err:sub(1900)))
+    client:getUser('368727799189733376'):send(("An error has occured! ```\n%s\n```"):format(err:sub(1, 1900)))
 end
 
 function util.patternEscape(str)

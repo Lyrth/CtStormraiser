@@ -249,6 +249,7 @@ local function run(channel, msg)
                 currentNew[#currentNew+1] = v
             end
         end
+        lastState.currentNew = currentNew
         config:set {'lastUpdate', 'currentNew', value = currentNew}
         config:set {'lastUpdate', 'items', value = newItems}
     end

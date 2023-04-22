@@ -82,6 +82,7 @@ local function updateLastState(lastState, hash)
         lastState.currentNew = config:get {'lastUpdate', 'currentNew', default = {}}
     else
         lastState.time = os.time()
+        lastState.currentNew = {}
         config:set {'lastUpdate', 'time', value = lastState.time}
         storedItems = config:get {'lastUpdate', 'items', default = empty and {} or nil}
         needUpdate = true

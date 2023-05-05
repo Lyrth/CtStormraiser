@@ -94,9 +94,15 @@ end
 local function parseShop(shop, previousItems, currentNew)
     local newItems = {}
     local sections = {}
+    local firstSectionNames = {}
     for _,v in ipairs(shop) do
         if sectionNames[v.Section] then
             if not v.Name then v.Name = sectionNames[v.Section] end
+            if firstSectionNames[v.Section] then
+                v.Name = firstSectionNames[v.Section]
+            else
+                firstSectionNames[v.Section] = v.Name
+            end
             if v.Slot == 256 or v.Slot == 272 then
                 v.Slot = 0
                 v.Square = true

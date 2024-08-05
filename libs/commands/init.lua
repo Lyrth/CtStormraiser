@@ -9,6 +9,7 @@ local commands = {
     'test',
     'get_playfab_id',
     'status_channel',
+    'profile',
 }
 
 
@@ -22,7 +23,7 @@ for _, filename  in ipairs(commands) do
     ---@type boolean, SlashCommandDef
     local ok, command = pcall(require, './'..filename)
     if ok then
-        handlers[command.name] = command.handle
+        handlers[command.name] = command.handle     -- TODO respond to user on errors. check if reply has been done first
         command.handle = nil
 
         slashCommands[#slashCommands+1] = command

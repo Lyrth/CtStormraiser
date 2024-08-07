@@ -29,7 +29,7 @@ local classes = {
 
 function cmd.handle(intr)
     local opt1 = intr.data.options[1]
-    assert(opt1.name == 'username', "Invalid options form received: name")
+    assert(opt1.name == 'usernameid', "Invalid options form received: name")
     local uname = tostring(opt1.value)
 
     local ctlib = logins.getMain()

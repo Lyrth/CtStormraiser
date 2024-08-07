@@ -2,11 +2,11 @@
 ---@type SlashCommandDef
 local cmd = {
     name = "profile",
-    description = "e",
+    description = "heck you cyanea go live another 90 years",
     options = {
         {
-            name = "username",
-            description = "Player username, e.g. SomeUser#A1B2C",
+            name = "usernameid",
+            description = "Player username, e.g. SomeUser#A1B2C, or PlayFab ID",
             required = true,
             type =  3,
         }
@@ -32,9 +32,22 @@ function cmd.handle(intr)
     assert(opt1.name == 'username', "Invalid options form received: name")
     local uname = tostring(opt1.value)
 
-    -- intr:replyDeferred(true)
-
     local ctlib = logins.getMain()
+
+    if uname and uname:match('^%s*%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%s*$') then
+        local id = uname:gsub('%s+','')
+        local _uname, err = ctlib:getNameFromPlayfabId(id)
+        if not _uname then
+            if type(err) == 'string' and err:find('PlayerNotInGame') then
+                local msg = "Player with ID " .. id .. " does not exist!"
+                intr:reply(msg)
+                return
+            end
+            error(err)
+        end
+        uname = _uname
+    end
+
     local info, err = ctlib:getPlayfabInfoFromName(uname)
     local id = info and info.PlayFabId
     if not info then

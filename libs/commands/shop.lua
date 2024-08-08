@@ -285,7 +285,6 @@ local function run(channel, msg)
 end
 
 function cmd.handle(intr)
-    if intr.user.id ~= '368727799189733376' then intr:reply('No lol', true) return end
     intr:reply("Ok", true)
 
     run(nil, intr.channel:send("Fetching shop..."))

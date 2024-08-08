@@ -1,6 +1,6 @@
 
 ---@class SlashCommandDef : SlashCommand
----@field handle fun(intr: Interaction)
+---@field handle? fun(intr: Interaction)
 
 -- File names for each command
 local commands = {
